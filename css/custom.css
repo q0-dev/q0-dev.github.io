@@ -1,0 +1,6 @@
+/* Homepage post excerpts: no click-hover affordance (they are not links) */
+.index-excerpt,
+.index-excerpt:hover {
+  color: var(--sec-text-color);
+  cursor: default;
+}
