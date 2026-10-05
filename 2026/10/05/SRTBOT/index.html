@@ -27,7 +27,7 @@
 <meta property="og:description" content="MIT6.006中给出了SRTBOT的dp算法设计方法，本文记录笔者的理解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-10-05T03:57:13.000Z">
-<meta property="article:modified_time" content="2026-10-05T15:52:31.670Z">
+<meta property="article:modified_time" content="2026-10-05T16:13:17.142Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="MIT6.006">
@@ -331,7 +331,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.9k 字
         
       </span>
     
@@ -342,7 +342,7 @@
         
         
         
-          18 分钟
+          16 分钟
         
       </span>
     
@@ -383,23 +383,18 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">SRTBOT</h1>
             
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年10月6日 凌晨
+                  
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
-                <!-- 本页按需加载 MathJax 以渲染公式；若日后在主题配置中全局开启 math，可删除本段。 -->
-<script>
-if (!window.MathJax) {
-  window.MathJax = {
-    tex: { inlineMath: { '[+]': [['$', '$']] } }
-  };
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js';
-  document.head.appendChild(s);
-}
-</script>
-
-<blockquote>
+                <blockquote>
 <p><strong>MIT6.006</strong>中给出了<strong>SRTBOT</strong>的dp算法设计方法，本文记录笔者的理解。</p>
 </blockquote>
 <h3 id="框架解释"><a href="#框架解释" class="headerlink" title="框架解释:"></a>框架解释:</h3><table>
@@ -721,6 +716,12 @@ if (!window.MathJax) {
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -975,6 +976,49 @@ if (!window.MathJax) {
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
