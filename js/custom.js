@@ -14,3 +14,11 @@
     unlinkPostExcerpts();
   }
 })();
+
+/* Footer: keep the copyright year up to date */
+(function () {
+  var yearEl = document.getElementById('copyright-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+})();
