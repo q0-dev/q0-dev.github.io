@@ -27,7 +27,7 @@
 <meta property="og:description" content="记录学习线代中整理的秩相关问题的解法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-04T10:48:18.000Z">
-<meta property="article:modified_time" content="2026-11-05T09:22:08.703Z">
+<meta property="article:modified_time" content="2026-11-05T09:28:10.644Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="Linear Algebra">
 <meta property="article:tag" content="Math">
@@ -429,7 +429,9 @@
 <p>再证右,只证A，B同理<br>$$<br>M &#x3D; \begin{pmatrix}<br>A &amp; 0<br>\end{pmatrix}<br>\rightarrow<br>\begin{pmatrix}<br>A &amp; AB<br>\end{pmatrix}<br>$$</p>
 <p>$r(M) &#x3D; r(A) \ge r(AB)$<span style="float: right;">$\square$</span></p>
 <p><strong>线性空间法</strong></p>
-<p>$$<br>y &#x3D; Bx \\<br>T\colon \operatorname{im}B\longrightarrow\operatorname{im}(AB),<br>\qquad y\longmapsto Ay.<br>$$由秩–零度定理，</p>
+<p>$$y &#x3D; Bx$$</p>
+<p>$$T\colon \operatorname{im}B\longrightarrow\operatorname{im}(AB), \qquad y\longmapsto Ay.$$</p>
+<p>由秩–零度定理，</p>
 <p>$$<br>r(AB)&#x3D;r(B)-\dim(\operatorname{im}B\cap\ker A).<br>$$</p>
 <p>交集包含在 $\ker A$ 里，所以它的维数至多为 $n-r(A)$。代入即得</p>
 <p>$$<br>r(AB)\ge r(B)-(n-r(A))&#x3D;r(A)+r(B)-n.<br>$$</p>
