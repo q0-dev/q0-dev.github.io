@@ -27,7 +27,7 @@
 <meta property="og:description" content="记录学习线代中整理的秩相关问题的解法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-04T10:48:18.000Z">
-<meta property="article:modified_time" content="2026-11-05T07:10:00.395Z">
+<meta property="article:modified_time" content="2026-11-05T08:16:30.499Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="Linear Algebra">
 <meta property="article:tag" content="Math">
@@ -432,11 +432,11 @@
 <p>$$<br>r(AB)&#x3D;r(B)-\dim(\operatorname{im}B\cap\ker A).<br>$$</p>
 <p>交集包含在 $\ker A$ 里，所以它的维数至多为 $n-r(A)$。代入即得</p>
 <p>$$<br>r(AB)\ge r(B)-(n-r(A))&#x3D;r(A)+r(B)-n.<br>$$</p>
-<p>同一个等式给出 $r(AB)\le r(B)$。又因为 $\operatorname{im}(AB)\subseteq\operatorname{im}A$，所以 $r(AB)\le r(A)$。$\square$</p>
+<p>同一个等式给出 $r(AB)\le r(B)$。又因为 $\operatorname{im}(AB)\subseteq\operatorname{im}A$，所以 $r(AB)\le r(A)$。<span style="float: right;">$\square$</span></p>
 <p><strong>基扩充法</strong></p>
 <p>记 $s&#x3D;r(B)$。取 $\operatorname{im}B$ 的一组基 $u_1,\ldots,u_s$，补成 $A$ 的整个定义域的一组基 $u_1,\ldots,u_n$。对两组向量施加 $A$，得到</p>
 <p>$$<br>\begin{aligned}<br>\operatorname{im}(AB)&amp;&#x3D;\operatorname{span}(Au_1,\ldots,Au_s),<br>\operatorname{im}A&amp;&#x3D;\operatorname{span}(Au_1,\ldots,Au_s,Au_{s+1},\ldots,Au_n).<br>\end{aligned}<br>$$</p>
-<p>从第一行到第二行只添了 $n-s$ 个向量，所以 $r(A)-r(AB)\le n-s$，移项即得下界。第一行也说明 $r(AB)\le s&#x3D;r(B)$，而两行的包含关系给出 $r(AB)\le r(A)$。$\square$</p>
+<p>从第一行到第二行只添了 $n-s$ 个向量，所以 $r(A)-r(AB)\le n-s$，移项即得下界。第一行也说明 $r(AB)\le s&#x3D;r(B)$，而两行的包含关系给出 $r(AB)\le r(A)$。<span style="float: right;">$\square$</span></p>
 <h3 id="定理-2-·-Frobenius-秩不等式"><a href="#定理-2-·-Frobenius-秩不等式" class="headerlink" title="定理 2 · Frobenius 秩不等式"></a>定理 2 · Frobenius 秩不等式</h3><p>设 $A$、$B$、$C$ 分别为 $m \times n$、$n \times t$、$t \times s$ 矩阵，则</p>
 <p>$$r(ABC) \ge r(AB)+r(BC)-r(B)$$</p>
 <p><strong>构造矩阵法</strong></p>
@@ -446,13 +446,13 @@
 <p>$$<br>\operatorname{im}(BC)\cap\ker A<br>\subseteq \operatorname{im}B\cap\ker A.<br>$$</p>
 <p>分别把 $A$ 限制在 $\operatorname{im}(BC)$ 和 $\operatorname{im}B$ 上。由秩–零度定理，两个交集的维数就是左乘 $A$ 时各自损失的秩，因此</p>
 <p>$$<br>\begin{aligned}<br>r(BC)-r(ABC)<br>&amp;&#x3D;\dim(\operatorname{im}(BC)\cap\ker A)<br>&amp;\le \dim(\operatorname{im}B\cap\ker A)<br>&amp;&#x3D;r(B)-r(AB).<br>\end{aligned}<br>$$</p>
-<p>移项即得结论。$\square$</p>
+<p>移项即得结论。<span style="float: right;">$\square$</span></p>
 <p><strong>基扩充法</strong></p>
 <p>记 $p&#x3D;r(BC)$、$q&#x3D;r(B)$。由于 $\operatorname{im}(BC)\subseteq\operatorname{im}B$，可以取 $\operatorname{im}(BC)$ 的一组基 $u_1,\ldots,u_p$，把它补成 $\operatorname{im}B$ 的一组基 $u_1,\ldots,u_q$。施加 $A$ 后，</p>
 <p>$$<br>\begin{aligned}<br>\operatorname{im}(ABC)&amp;&#x3D;\operatorname{span}(Au_1,\ldots,Au_p),<br>\operatorname{im}(AB)&amp;&#x3D;\operatorname{span}(Au_1,\ldots,Au_p,Au_{p+1},\ldots,Au_q).<br>\end{aligned}<br>$$</p>
 <p>从第一行到第二行只添了 $q-p$ 个向量，所以</p>
 <p>$$<br>r(AB)-r(ABC)\le q-p&#x3D;r(B)-r(BC).<br>$$</p>
-<p>移项即得结论。$\square$</p>
+<p>移项即得结论。<span style="float: right;">$\square$</span></p>
 <h3 id="定理-3"><a href="#定理-3" class="headerlink" title="定理 3"></a>定理 3</h3><h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><hr>
 <p>未完待续</p>
 
