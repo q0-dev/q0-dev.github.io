@@ -27,7 +27,7 @@
 <meta property="og:description" content="记录学习线代中整理的秩相关问题的解法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-04T10:48:18.000Z">
-<meta property="article:modified_time" content="2026-11-07T08:11:43.386Z">
+<meta property="article:modified_time" content="2026-11-07T08:19:08.241Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="Linear Algebra">
 <meta property="article:tag" content="Math">
@@ -332,7 +332,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.3k 字
+          5.8k 字
         
       </span>
     
@@ -343,7 +343,7 @@
         
         
         
-          13 分钟
+          14 分钟
         
       </span>
     
@@ -490,6 +490,13 @@
 <p><strong>线性空间法</strong><br>此题核心类似于<strong>无穷递降法</strong></p>
 <p>记 $U_k&#x3D;\operatorname{im}(A^k)$, 其中 $A^0&#x3D;I_n$. 由 $A^{k+1}x&#x3D;A^k(Ax)$, 有 $U_{k+1}\subseteq U_k$. 又 $U_{k+1}&#x3D;A(U_k)$, 所以一旦 $U_k&#x3D;U_{k+1}$, 两边施加 $A$ 就得到 $U_{k+1}&#x3D;U_{k+2}$, 此后各项相等.</p>
 <p>$U_0$ 的维数为 $n$, 所以前 $n+1$ 次包含中至少有一次取等, 否则维数会降到负数. 因此 $U_n&#x3D;U_{n+1}&#x3D;\cdots$, 从而 $r(A^N)&#x3D;\dim U_N&#x3D;\dim U_M&#x3D;r(A^M)$.<span style="float: right;">$\square$</span></p>
+<h3 id="例三"><a href="#例三" class="headerlink" title="例三"></a>例三</h3><p>设 $A$ 为 $n$ 阶实矩阵, 满足 $AA^{\mathsf T}&#x3D;A+A^{\mathsf T}$. 证明</p>
+<p>$$r(A)&#x3D;r(A^2)&#x3D;r(A^3)&#x3D;\cdots.$$</p>
+<p><strong>线性空间法</strong></p>
+<p>若 $Ax&#x3D;0$, 则由题设</p>
+<p>$$\lVert A^{\mathsf T}x\rVert^2&#x3D;x^{\mathsf T}AA^{\mathsf T}x&#x3D;x^{\mathsf T}(A+A^{\mathsf T})x&#x3D;0.$$</p>
+<p>所以 $\ker A\subseteq\ker A^{\mathsf T}$. 若 $A^2x&#x3D;0$, 则 $Ax\in\ker A$, 从而 $A^{\mathsf T}Ax&#x3D;0$. 因此 $\lVert Ax\rVert^2&#x3D;x^{\mathsf T}A^{\mathsf T}Ax&#x3D;0$, 即 $Ax&#x3D;0$.</p>
+<p>于是 $\ker(A^2)&#x3D;\ker A$, 由秩–零度定理得 $r(A^2)&#x3D;r(A)$. 又 $\operatorname{im}(A^2)\subseteq\operatorname{im}A$, 故两者相等. 按例二的结论, 此后的像空间都相等.<span style="float: right;">$\square$</span></p>
 <hr>
 <p>未完待续</p>
 
