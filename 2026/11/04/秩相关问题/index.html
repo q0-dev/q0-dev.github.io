@@ -27,7 +27,7 @@
 <meta property="og:description" content="记录学习线代中整理的秩相关问题的解法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-04T10:48:18.000Z">
-<meta property="article:modified_time" content="2026-11-07T08:54:33.810Z">
+<meta property="article:modified_time" content="2026-11-07T15:11:52.767Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="Linear Algebra">
 <meta property="article:tag" content="Math">
@@ -387,7 +387,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年11月7日 下午
+                    本文最后更新于 2026年11月7日 晚上
                   
                 
               </p>
@@ -436,7 +436,7 @@
 <p>先加块列, 再减块行, 得</p>
 <p>$$M&#x3D;\begin{pmatrix}0&amp;E_n\\AB&amp;0\end{pmatrix}\sim\begin{pmatrix}B&amp;E_n\\AB&amp;0\end{pmatrix}\sim\begin{pmatrix}B&amp;E_n\\0&amp;-A\end{pmatrix}.$$</p>
 <p>交换原矩阵的两块列得 $r(M)&#x3D;n+r(AB)$, 由末式和分块秩引理得 $r(M)\ge r(B)+r(A)$.</p>
-<p>由 $(A;;0)\sim(A;;AB)$ 得 $r(AB)\le r(A)$. 对转置乘积同理得 $r(AB)\le r(B)$.<span style="float: right;">$\square$</span></p>
+<p>由 $(A \quad 0)\sim(A \quad AB)$ 得 $r(AB)\le r(A)$. 对转置乘积同理得 $r(AB)\le r(B)$.<span style="float: right;">$\square$</span></p>
 <p><strong>线性空间法</strong></p>
 <p>将 $A$ 限制在 $\operatorname{im}B$ 上.</p>
 <p>$$T\colon\operatorname{im}B\longrightarrow\operatorname{im}(AB),\qquad y&#x3D;Bx\longmapsto Ay.$$</p>
