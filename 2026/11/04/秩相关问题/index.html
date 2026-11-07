@@ -27,7 +27,7 @@
 <meta property="og:description" content="记录学习线代中整理的秩相关问题的解法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-04T10:48:18.000Z">
-<meta property="article:modified_time" content="2026-11-07T08:00:15.023Z">
+<meta property="article:modified_time" content="2026-11-07T08:11:43.386Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="Linear Algebra">
 <meta property="article:tag" content="Math">
@@ -332,7 +332,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          5.3k 字
         
       </span>
     
@@ -343,7 +343,7 @@
         
         
         
-          12 分钟
+          13 分钟
         
       </span>
     
@@ -485,6 +485,11 @@
 <p>任取 $x\in\ker(AC)$, 有 $Cx\in\ker A$. 由 $C(Cx)&#x3D;Cx$, 得 $x-Cx\in\ker C$, 故两组基也张成 $\ker(AC)$. 于是</p>
 <p>$$n-r(AC)&#x3D;\dim\ker A+\dim\ker C&#x3D;(n-r(A))+(n-r(C)).$$</p>
 <p>整理即得结论.<span style="float: right;">$\square$</span></p>
+<h3 id="例二"><a href="#例二" class="headerlink" title="例二"></a>例二</h3><p>设 $A$ 为 $n$ 阶方阵. 证明对任意整数 $N,M\ge n$, 有</p>
+<p>$$r(A^N)&#x3D;r(A^M).$$</p>
+<p><strong>线性空间法</strong><br>此题核心类似于<strong>无穷递降法</strong></p>
+<p>记 $U_k&#x3D;\operatorname{im}(A^k)$, 其中 $A^0&#x3D;I_n$. 由 $A^{k+1}x&#x3D;A^k(Ax)$, 有 $U_{k+1}\subseteq U_k$. 又 $U_{k+1}&#x3D;A(U_k)$, 所以一旦 $U_k&#x3D;U_{k+1}$, 两边施加 $A$ 就得到 $U_{k+1}&#x3D;U_{k+2}$, 此后各项相等.</p>
+<p>$U_0$ 的维数为 $n$, 所以前 $n+1$ 次包含中至少有一次取等, 否则维数会降到负数. 因此 $U_n&#x3D;U_{n+1}&#x3D;\cdots$, 从而 $r(A^N)&#x3D;\dim U_N&#x3D;\dim U_M&#x3D;r(A^M)$.<span style="float: right;">$\square$</span></p>
 <hr>
 <p>未完待续</p>
 
