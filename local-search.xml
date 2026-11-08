@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>算法复杂度分析</title>
+    <link href="/2026/11/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/"/>
+    <url>/2026/11/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><h3 id="记号"><a href="#记号" class="headerlink" title="记号"></a>记号</h3><h4 id="上界、下界、紧界"><a href="#上界、下界、紧界" class="headerlink" title="上界、下界、紧界:"></a>上界、下界、紧界:</h4><p>设 $f,g$ 最终非负，下面的不等式都要求对充分大的 $n$ 成立，即存在 $n_0$，对所有 $n\ge n_0$ 成立。</p><table><thead><tr><th>记号</th><th>含义</th><th>条件</th></tr></thead><tbody><tr><td>$f(n)&#x3D;O(g(n))$</td><td><strong>upper bound</strong>（上界）</td><td>存在 $c&gt;0$，$f(n)\le cg(n)$</td></tr><tr><td>$f(n)&#x3D;\Omega(g(n))$</td><td><strong>lower bound</strong>（下界）</td><td>存在 $c&gt;0$，$f(n)\ge cg(n)$</td></tr><tr><td>$f(n)&#x3D;\Theta(g(n))$</td><td><strong>tight bound</strong>（紧界）</td><td>存在 $c_1,c_2&gt;0$，$c_1g(n)\le f(n)\le c_2g(n)$</td></tr></tbody></table><h3 id="代入法"><a href="#代入法" class="headerlink" title="代入法"></a>代入法</h3><h3 id="递归树"><a href="#递归树" class="headerlink" title="递归树"></a>递归树</h3><h3 id="主定理-Master-Theorem"><a href="#主定理-Master-Theorem" class="headerlink" title="主定理(Master Theorem)"></a>主定理(Master Theorem)</h3><h4 id="适用条件与三个情形"><a href="#适用条件与三个情形" class="headerlink" title="适用条件与三个情形"></a>适用条件与三个情形</h4><p>主定理处理 $T(n)&#x3D;aT(n&#x2F;b)+f(n)$，其中 $a\ge 1$、$b&gt;1$ 都是常数，$f(n)$ 最终非负.</p><table><thead><tr><th>情形</th><th>需要的条件</th><th>时间复杂度</th></tr></thead><tbody><tr><td>1</td><td>$f(n)&#x3D;O(n^{p-\varepsilon})$，某个常数 $\varepsilon&gt;0$</td><td>$\Theta(n^p)$</td></tr><tr><td>2</td><td>$f(n)&#x3D;\Theta(n^p(\log n)^k)$，某个常数 $k\ge 0$</td><td>$\Theta(n^p(\log n)^{k+1})$</td></tr><tr><td>3</td><td>$f(n)&#x3D;\Omega(n^{p+\varepsilon})$，某个常数 $\varepsilon&gt;0$，并且对充分大的 $n$ 有 $af(n&#x2F;b)\le c f(n)$，某个常数 $0&lt;c&lt;1$</td><td>$\Theta(f(n))$</td></tr></tbody></table><p><strong>证明</strong><br>$$<br>$$</p><h3 id="Akra-Bazzi-定理"><a href="#Akra-Bazzi-定理" class="headerlink" title="Akra-Bazzi 定理"></a>Akra-Bazzi 定理</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Algorithm</tag>
+      
+      <tag>Complexity</tag>
+      
+      <tag>CLRS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>微分中值定理的应用</title>
     <link href="/2026/11/07/%E5%BE%AE%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E7%9A%84%E5%BA%94%E7%94%A8/"/>
     <url>/2026/11/07/%E5%BE%AE%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E7%9A%84%E5%BA%94%E7%94%A8/</url>
