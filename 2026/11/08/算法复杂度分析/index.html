@@ -27,7 +27,7 @@
 <meta property="og:description" content="CLRS中给出了算法复杂度分析的几种方法，本文记录笔者的理解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-08T13:44:00.000Z">
-<meta property="article:modified_time" content="2026-11-09T11:21:58.745Z">
+<meta property="article:modified_time" content="2026-11-09T13:14:05.201Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="CLRS">
 <meta property="article:tag" content="复杂度">
@@ -504,7 +504,7 @@
 <p><strong>直观理解</strong>：$n^p$ 给出递归结构的基准量级，积分项描述各个规模上的额外工作如何累积。</p>
 <p>括号中的 <strong>$1$ 不能漏掉</strong>：即使积分收敛到常数，仍然有 $\Theta(n^p)$ 的成本。</p>
 </blockquote>
-<p>这里给出结论，不展开证明.</p>
+<p>这里给出结论，不展开证明.原</p>
 <h4 id="例子1：不等规模的分支"><a href="#例子1：不等规模的分支" class="headerlink" title="例子1：不等规模的分支"></a>例子1：不等规模的分支</h4><p>$$T(n)&#x3D;T(n&#x2F;3)+T(2n&#x2F;3)+n.$$</p>
 <table>
 <thead>
@@ -553,7 +553,7 @@
 <li>分别数每类工作累计做了多少次，再把成本加起来。可以数一次昂贵操作的发生频率，也可以数每个元素最多被处理几次。</li>
 <li>若任意 $m$ 次操作的总成本至多为 $F(m)$，统一分摊后，每次成本至多为 $F(m)&#x2F;m$。</li>
 </ol>
-<h4 id="核算法（Accounting-Method，也称记账法）"><a href="#核算法（Accounting-Method，也称记账法）" class="headerlink" title="核算法（Accounting Method，也称记账法）"></a>核算法（Accounting Method，也称记账法）</h4><p>先给各类操作指定收费 $\widehat c_t$。本次收费加上之前留下的余额，共同支付实际成本 $c_t$。余额可以放在一个公共账户里，也可以记在具体元素上。</p>
+<h4 id="核算法（Accounting-Method）"><a href="#核算法（Accounting-Method）" class="headerlink" title="核算法（Accounting Method）"></a>核算法（Accounting Method）</h4><p>先给各类操作指定收费 $\widehat c_t$。本次收费加上之前留下的余额，共同支付实际成本 $c_t$。余额可以放在一个公共账户里，也可以记在具体元素上。</p>
 <p>从零余额开始，第 $t$ 步做完后的余额为</p>
 <p>$$B_t&#x3D;B_{t-1}+\widehat c_t-c_t.$$</p>
 <p>证明时要说明每一笔未来的开销由谁支付，并保证<strong>每个前缀</strong>都有 $B_t\ge0$。这样就有 $\sum_{t&#x3D;1}^m c_t\le\sum_{t&#x3D;1}^m\widehat c_t$。不同操作可以设不同的收费，适合把某项后续工作明确归到先前创建或修改它的操作上。</p>
@@ -685,9 +685,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/11/09/%E4%BB%8E%E6%B1%82%E8%A7%A3%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E6%A0%B9%E5%88%B0%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E7%9A%84%E6%80%9D%E8%80%83/" title="从求解多项式的根到项目基础架构的思考">
+                      <a href="/2026/11/09/%E4%BB%8E%E6%B1%82%E8%A7%A3%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%96%B9%E7%A8%8B%E7%9A%84%E6%A0%B9%E5%88%B0%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E7%9A%84%E6%80%9D%E8%80%83/" title="从求解多项式方程的根到项目基础架构的思考">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从求解多项式的根到项目基础架构的思考</span>
+                        <span class="hidden-mobile">从求解多项式方程的根到项目基础架构的思考</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
