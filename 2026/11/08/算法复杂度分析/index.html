@@ -27,7 +27,7 @@
 <meta property="og:description" content="CLRS中给出了算法复杂度分析的几种方法，本文记录笔者的理解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-08T13:44:00.000Z">
-<meta property="article:modified_time" content="2026-11-09T13:14:05.201Z">
+<meta property="article:modified_time" content="2026-11-09T14:12:13.307Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="CLRS">
 <meta property="article:tag" content="复杂度">
@@ -332,7 +332,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          4.3k 字
         
       </span>
     
@@ -343,11 +343,12 @@
         
         
         
-          13 分钟
+          11 分钟
         
       </span>
     
 
+    <span class="post-meta post-status post-status--incomplete">待补充</span>
     
     
   </div>
@@ -547,25 +548,15 @@
 <p>$$\int_{n_0}^n\frac{u&#x2F;\ln u}{u^2},du&#x3D;\int_{n_0}^n\frac{1}{u\ln u},du&#x3D;\ln\ln n-\ln\ln n_0.$$</p>
 <p>故 $T(n)&#x3D;\Theta(n\log\log n)$。</p>
 <hr>
-<h3 id="摊还分析（Amortized-Analysis）"><a href="#摊还分析（Amortized-Analysis）" class="headerlink" title="摊还分析（Amortized Analysis）"></a>摊还分析（Amortized Analysis）</h3><p>给定初始状态 $D_0$，考虑从该状态出发的任意 $m$ 次合法操作。设第 $t$ 次操作的实际成本为 $c_t$。摊还分析先约束总成本 $\sum_{t&#x3D;1}^m c_t$，再把这笔成本分到各次操作上。若能证明总成本为 $O(m)$，统一分摊后每次是 $O(1)$。这个界对任意合法顺序成立，单次实际成本仍取决于操作遇到的状态。</p>
-<h4 id="聚合分析（Aggregate-Method）"><a href="#聚合分析（Aggregate-Method）" class="headerlink" title="聚合分析（Aggregate Method）"></a>聚合分析（Aggregate Method）</h4><ol>
-<li>先找出整个序列里有哪些工作要计费，例如比较、写入和搬迁。</li>
-<li>分别数每类工作累计做了多少次，再把成本加起来。可以数一次昂贵操作的发生频率，也可以数每个元素最多被处理几次。</li>
-<li>若任意 $m$ 次操作的总成本至多为 $F(m)$，统一分摊后，每次成本至多为 $F(m)&#x2F;m$。</li>
-</ol>
-<h4 id="核算法（Accounting-Method）"><a href="#核算法（Accounting-Method）" class="headerlink" title="核算法（Accounting Method）"></a>核算法（Accounting Method）</h4><p>先给各类操作指定收费 $\widehat c_t$。本次收费加上之前留下的余额，共同支付实际成本 $c_t$。余额可以放在一个公共账户里，也可以记在具体元素上。</p>
-<p>从零余额开始，第 $t$ 步做完后的余额为</p>
-<p>$$B_t&#x3D;B_{t-1}+\widehat c_t-c_t.$$</p>
-<p>证明时要说明每一笔未来的开销由谁支付，并保证<strong>每个前缀</strong>都有 $B_t\ge0$。这样就有 $\sum_{t&#x3D;1}^m c_t\le\sum_{t&#x3D;1}^m\widehat c_t$。不同操作可以设不同的收费，适合把某项后续工作明确归到先前创建或修改它的操作上。</p>
-<h4 id="势能法（Potential-Method）"><a href="#势能法（Potential-Method）" class="headerlink" title="势能法（Potential Method）"></a>势能法（Potential Method）</h4><p>给每个状态 $D$ 定义势能 $\Phi(D)$。先找出状态中能反映未来工作量的量，再选系数，使昂贵操作释放的势能能够抵消它的大部分成本。令 $D_t$ 为第 $t$ 次操作后的状态，定义</p>
-<p>$$\widehat c_t&#x3D;c_t+\Phi(D_t)-\Phi(D_{t-1}).$$</p>
-<p>势能增加，相当于留下额度。势能减少，相当于用掉额度。逐项求和后，中间状态的势能抵消，只剩两个端点。</p>
-<p>$$\sum_{t&#x3D;1}^m c_t&#x3D;\sum_{t&#x3D;1}^m \widehat c_t+\Phi(D_0)-\Phi(D_m).$$</p>
-<p>逐类验证 $\widehat c_t$ 的上界，再控制端点差 $\Phi(D_0)-\Phi(D_m)$。常用做法是让势能始终非负，并选取初始势能为常数的起点。这样，每步的常数上界就能推出全序列的 $O(m)$ 上界。</p>
-<h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><table>
+<h3 id="摊还分析（Amortized-Analysis）"><a href="#摊还分析（Amortized-Analysis）" class="headerlink" title="摊还分析（Amortized Analysis）"></a>摊还分析（Amortized Analysis）</h3><p>摊还分析用来评价某个数据结构的一系列操作的<strong>平均代价</strong>, 有三种常用的技术：<strong>聚合分析，核算法，势能法</strong>。</p>
+<h4 id="聚合分析（Aggregate-Analysis）"><a href="#聚合分析（Aggregate-Analysis）" class="headerlink" title="聚合分析（Aggregate Analysis）"></a>聚合分析（Aggregate Analysis）</h4><p>若任意 $m$ 次操作的总成本至多为 $F(m)$，<strong>统一</strong>分摊后，每次成本至多为 $F(m)&#x2F;m$</p>
+<h4 id="核算法（Accounting-Method）"><a href="#核算法（Accounting-Method）" class="headerlink" title="核算法（Accounting Method）"></a>核算法（Accounting Method）</h4><p>赋予一个操作<strong>摊还代价$\widehat c_t$</strong>,该操作<strong>真实代价</strong>为$c_t$.<br>当$\widehat c_t &gt; c_t$时, 定义$\widehat c_t - c_t$为信用(credits)<br>为了确保<strong>摊还代价的和</strong>能<strong>给出</strong>真实代价的<strong>上界</strong>, 要求:<br>$$\sum_{t&#x3D;1}^n \widehat c_t \ge \sum_{t&#x3D;1}^n c_t$$即总信用始终为非负值</p>
+<h4 id="势能法（Potential-Method）"><a href="#势能法（Potential-Method）" class="headerlink" title="势能法（Potential Method）"></a>势能法（Potential Method）</h4><p>给每个数据结构 $D$ 定义<strong>势能 $\Phi(D)$</strong><br>定义摊还代价<br>$$\widehat c_t&#x3D;c_t+\Phi(D_t)-\Phi(D_{t-1}).$$</p>
+<p>求和:<br>$$\sum_{t&#x3D;1}^n \widehat c_t&#x3D;\sum_{t&#x3D;1}^n  c_t+\Phi(D_n)-\Phi(D_0).$$<br>同样的,我们要求:<br>$$\Phi(D_n)-\Phi(D_0) \ge 0$$<br>通常简单定义$\Phi(D_0)&#x3D;0$</p>
+<h4 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h4><table>
 <thead>
 <tr>
-<th>已知什么</th>
+<th>已知</th>
 <th>适合的方法</th>
 </tr>
 </thead>
