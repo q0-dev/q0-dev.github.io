@@ -34,3 +34,79 @@
 .post-status--incomplete {
   --post-status-dot: #b58a55;
 }
+
+/* Embedded diagrams: clear the code-block and SVG canvas backgrounds. */
+.markdown-body pre:has(> .mermaid),
+.markdown-body .mermaid,
+.markdown-body .mermaid > svg {
+  background: transparent !important;
+}
+
+/* Textbook-style recursion trees, embedded directly in the article. */
+.markdown-body .recursion-figure {
+  margin: 1.8rem auto 1.5rem;
+  max-width: 760px;
+  color: var(--text-color);
+}
+.recursion-scroll {
+  overflow-x: auto;
+}
+.recursion-figure svg {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  background: transparent;
+  overflow: visible;
+}
+.recursion-figure text {
+  fill: currentColor;
+  text-anchor: middle;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+.recursion-figure .tree-heading,
+.recursion-figure .tree-note,
+.recursion-figure .tree-muted {
+  color: var(--sec-text-color);
+}
+.recursion-figure .tree-heading text,
+.recursion-figure .tree-note {
+  font-size: 13px;
+}
+.recursion-figure .tree-formula text,
+.recursion-figure .tree-total text {
+  font-family: "Cambria Math", "Times New Roman", serif;
+  font-size: 18px;
+}
+.recursion-figure .tree-total text {
+  font-size: 16px;
+}
+.recursion-figure .tree-edge,
+.recursion-figure .tree-continuation,
+.recursion-figure .tree-guide {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: .45;
+}
+.recursion-figure .tree-continuation {
+  stroke-dasharray: 2 5;
+  opacity: .25;
+}
+.recursion-figure .tree-guide {
+  opacity: .15;
+}
+.recursion-figure .tree-dot {
+  fill: currentColor;
+  opacity: .7;
+}
+.markdown-body .recursion-figure figcaption {
+  display: block;
+  margin-top: .35rem;
+  color: var(--sec-text-color);
+  font-size: .85rem;
+  line-height: 1.7;
+  text-align: center;
+}

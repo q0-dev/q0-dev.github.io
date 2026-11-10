@@ -27,7 +27,7 @@
 <meta property="og:description" content="CLRS中给出了算法复杂度分析的几种方法，本文记录笔者的理解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-08T13:44:00.000Z">
-<meta property="article:modified_time" content="2026-11-09T15:49:47.418Z">
+<meta property="article:modified_time" content="2026-11-10T12:07:38.833Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="CLRS">
 <meta property="article:tag" content="复杂度">
@@ -332,7 +332,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.3k 字
+          9.2k 字
         
       </span>
     
@@ -343,12 +343,12 @@
         
         
         
-          14 分钟
+          25 分钟
         
       </span>
     
 
-    <span class="post-meta post-status post-status--incomplete">待补充</span>
+    <span class="post-meta post-status post-status--complete">已完结</span>
     
     
   </div>
@@ -388,7 +388,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年11月9日 晚上
+                    本文最后更新于 2026年11月10日 晚上
                   
                 
               </p>
@@ -396,7 +396,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><h3 id="记号"><a href="#记号" class="headerlink" title="记号"></a>记号</h3><h4 id="上界、下界、紧界"><a href="#上界、下界、紧界" class="headerlink" title="上界、下界、紧界"></a>上界、下界、紧界</h4><p>设 $f,g$ 最终非负，下面的不等式都要求对充分大的 $n$ 成立，即存在 $n_0$，对所有 $n\ge n_0$ 成立。</p>
+                <h2 id="渐进记号"><a href="#渐进记号" class="headerlink" title="渐进记号"></a>渐进记号</h2><h3 id="上界、下界、紧界"><a href="#上界、下界、紧界" class="headerlink" title="上界、下界、紧界"></a>上界、下界、紧界</h3><p>设 $f,g$ 最终非负，下面的不等式都要求对充分大的 $n$ 成立，即存在 $n_0$，对所有 $n\ge n_0$ 成立。</p>
 <table>
 <thead>
 <tr>
@@ -422,13 +422,233 @@
 </tr>
 </tbody></table>
 <hr>
-<p>下面介绍常用方法</p>
-<h3 id="代入法"><a href="#代入法" class="headerlink" title="代入法"></a>代入法</h3><p><strong>猜测</strong>一个界,然后用<strong>归纳</strong>法证明其正确性</p>
-<h4 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h4><p>$T(n) &#x3D; T(n - 1) + T(n - 2)$, 求解$T(n)$的渐进表达</p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>记 $n$ 为<strong>输入规模</strong>(区分<strong>输入值</strong>)，例如数组的元素个数。时间复杂度描述运行代价 $T(n)$ 随 $n$ 增大时的增长阶。<br>下面介绍计算的常用方法</p>
+<h3 id="直接加和"><a href="#直接加和" class="headerlink" title="直接加和"></a>直接加和</h3><p>直接计算操作的花费.<br>$$T &#x3D; \text{操作数} \times \text{每次操作花费}$$</p>
+<h4 id="例-1（双重循环）"><a href="#例-1（双重循环）" class="headerlink" title="例 1（双重循环）"></a>例 1（双重循环）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n): <span class="hljs-comment"># [0, n-1]</span><br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i, n): <span class="hljs-comment"># [i, n-1]</span><br>        doSomething() <span class="hljs-comment"># O(1)操作</span><br></code></pre></td></tr></table></figure>
+<p>则$T(n) &#x3D; \sum_{i &#x3D; 0}^{n-1}{(n - i)} &#x3D; \frac{(n+1)n}{2}&#x3D;\Theta(n^2)$.</p>
+<h3 id="建立递推"><a href="#建立递推" class="headerlink" title="建立递推"></a>建立递推</h3><p>当遇到分治等算法时,往往需要通过$T(n)$的<strong>线性递归</strong>式解出其渐进表达,首先需要建立递推式.</p>
+<p>核心是以下式子:<br>$$\text{原问题花费} &#x3D; \sum\text{子问题花费} + \text{原问题非递归花费}$$其中非递归花费包含合并花费等.</p>
+<h4 id="例-1（Fibonacci）"><a href="#例-1（Fibonacci）" class="headerlink" title="例 1（Fibonacci）"></a>例 1（Fibonacci）</h4><p>计算第 $n$ 个 Fibonacci 数，每次调用的非递归花费为 $\Theta(1)$.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fib</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> n<br>    <span class="hljs-keyword">return</span> (fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+
+<p>无非递归花费<br>$$T(n) &#x3D; T(n-1) + T(n-2), T(1) &#x3D; \Theta(1)$$</p>
+<p><strong>注意</strong>:<br>这里给出的是T关于<strong>输入值</strong>的递推,该递推式只对应$n$<strong>较小</strong>的情况, $n$大时加法的代价为$O(\lceil n&#x2F;w \rceil)$.<br>此时<br>$$T(n) &#x3D; T(n-1) + T(n-2) + \Theta (\lceil\frac{n}{w}\rceil)$$</p>
+<p>详情参见<a href="/2026/10/05/SRTBOT/#T-%E7%9A%84%E4%B8%80%E8%88%AC%E7%AE%97%E6%B3%95" title="SRTBOT">SRTBOT 的时间分析</a></p>
+<h4 id="例-2（三分支递归）"><a href="#例-2（三分支递归）" class="headerlink" title="例 2（三分支递归）"></a>例 2（三分支递归）</h4><p>每次统计当前区间内相等的有序对，再加上前三个四分区间各自的统计值。设数组长度 $n$ 为 $4$ 的幂。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">pair_work</span>(<span class="hljs-params">a, lo, hi</span>):<br>    n = hi - lo<br>    total = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>        buf = [<span class="hljs-literal">False</span>] * n<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>            buf[j - lo] = a[i] == a[j]<br>        total += <span class="hljs-built_in">sum</span>(buf)<br>        <span class="hljs-keyword">del</span> buf<br>    <span class="hljs-keyword">return</span> total<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">count_pairs</span>(<span class="hljs-params">a</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">count</span>(<span class="hljs-params">lo, hi</span>):<br>        n = hi - lo<br>        <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> n<br>        total = pair_work(a, lo, hi)<br>        q = n // <span class="hljs-number">4</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>            total += count(lo + i * q, lo + (i + <span class="hljs-number">1</span>) * q)<br>        <span class="hljs-keyword">return</span> total<br><br>    <span class="hljs-keyword">return</span> count(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(a))<br></code></pre></td></tr></table></figure>
+
+<p>循环发起 $3$ 次规模为 $n&#x2F;4$ 的子调用。<code>pair_work</code> 有 $n$ 轮，每轮用 $\Theta(n)$ 时间.合并花费$\Theta(n^2)$<br>$$<br>T(n)&#x3D;3T(n&#x2F;4)+\Theta(n^2),\qquad T(1)&#x3D;\Theta(1).<br>$$</p>
+<h4 id="例-3（Merge-Sort）"><a href="#例-3（Merge-Sort）" class="headerlink" title="例 3（Merge Sort）"></a>例 3（Merge Sort）</h4><p>在原数组上按区间递归，所有调用共用缓冲区。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">merge_sort</span>(<span class="hljs-params">a</span>):<br>    buf = [<span class="hljs-literal">None</span>] * <span class="hljs-built_in">len</span>(a)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">sort</span>(<span class="hljs-params">lo, hi</span>):  <span class="hljs-comment"># 排序区间 [lo, hi)</span><br>        <span class="hljs-keyword">if</span> hi - lo &lt;= <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span><br>        mid = (lo + hi) // <span class="hljs-number">2</span><br>        sort(lo, mid)<br>        sort(mid, hi)<br>        i, j = lo, mid<br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>            <span class="hljs-keyword">if</span> j == hi <span class="hljs-keyword">or</span> (i &lt; mid <span class="hljs-keyword">and</span> a[i] &lt;= a[j]):<br>                buf[k] = a[i]<br>                i += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                buf[k] = a[j]<br>                j += <span class="hljs-number">1</span><br><br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>            a[k] = buf[k]<br><br>    sort(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(a))<br></code></pre></td></tr></table></figure>
+
+<p>设 $n$ 为 $2$ 的幂。<code>sort</code> 发起两次规模为 $n&#x2F;2$ 的子调用，合并花费$\Theta(n)$, 因此</p>
+<p>$$<br>T(n)&#x3D;2T(n&#x2F;2)+\Theta(n),\qquad T(1)&#x3D;\Theta(1).<br>$$</p>
+<h3 id="求解递推"><a href="#求解递推" class="headerlink" title="求解递推"></a>求解递推</h3><p>有了递推式, 下面给出几种方法来解出$T(n)$的<strong>渐进表达</strong></p>
+<h4 id="代入法"><a href="#代入法" class="headerlink" title="代入法"></a>代入法</h4><p><strong>猜测</strong>一个界,然后用<strong>归纳</strong>法证明其正确性</p>
+<h5 id="例-1（Fibonacci）-1"><a href="#例-1（Fibonacci）-1" class="headerlink" title="例 1（Fibonacci）"></a>例 1（Fibonacci）</h5><p>$T(n) &#x3D; T(n - 1) + T(n - 2)$，$T(0)&#x3D;T(1)&#x3D;2$，求解$T(n)$的渐进表达</p>
 <p>猜测为 $\Theta(c^n)$, 即 $$kc^n \le T(n) \le k’c^n (k, k’, c&gt;0)$$<br>归纳得: $$kc^{n - 2}(c + 1) \le T(n) \le k’c^{n - 2}(c + 1)$$<br>欲使 $$c^{n - 2}(c + 1) &#x3D; c^n$$<br>解得 $$c&#x3D;\frac{1 + \sqrt{5}}{2}$$<br>即得$$T(n) &#x3D; \Theta((\frac{1 + \sqrt{5}}{2})^n)$$</p>
-<h3 id="递归树"><a href="#递归树" class="headerlink" title="递归树"></a>递归树</h3><p>将递归式转化为树, 节点表示递归调用的代价</p>
-<h3 id="主方法"><a href="#主方法" class="headerlink" title="主方法"></a>主方法</h3><p>主方法依托于<strong>主定理(Master Theorem)</strong>.</p>
-<h4 id="主定理适用条件与三个情形"><a href="#主定理适用条件与三个情形" class="headerlink" title="主定理适用条件与三个情形"></a>主定理适用条件与三个情形</h4><p>主定理处理 $T(n)&#x3D;aT(n&#x2F;b)+f(n)$，其中 $a\ge 1$、$b&gt;1$ 都是常数.</p>
+<h4 id="递归树"><a href="#递归树" class="headerlink" title="递归树"></a>递归树</h4><p>将递归式展开成树，每个节点记录本次调用的<strong>非递归花费</strong>，子问题对应孩子节点。<br>展开至 <strong>base case</strong>，再按层加和。</p>
+<p>$$<br>\text{总花费}&#x3D;\text{节点数}\times\text{每个节点的花费}<br>$$</p>
+<h5 id="例-1（三分支递归）"><a href="#例-1（三分支递归）" class="headerlink" title="例 1（三分支递归）"></a>例 1（三分支递归）</h5><p>给出递推式，设 $n&#x3D;4^L$，$c,d&gt;0$ 为常数。</p>
+<p>$$<br>T(n)&#x3D;3T\left(\frac{n}{4}\right)+cn^2,\qquad T(1)&#x3D;d<br>$$</p>
+<p>每个节点分出 $3$ 个子问题，规模缩小为原来的 $1&#x2F;4$，画出递归树。</p>
+<figure class="recursion-figure" aria-labelledby="ternary-tree-caption">
+<div class="recursion-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 345" role="img" aria-labelledby="ternary-tree-title ternary-tree-desc">
+<title id="ternary-tree-title">三分支递归树</title>
+<desc id="ternary-tree-desc">前两层对称展开，圆点代表第二层节点，其单次花费标在下方。竖向省略号表示各分支继续递归。右侧为整层总花费。</desc>
+<g class="tree-guide"><path d="M48 42 H624 M505 42 V330"/></g>
+<g class="tree-heading"><text x="22" y="24">层</text><text x="280" y="24">递归树 · 节点为本次花费</text><text x="570" y="24">整层花费</text></g>
+<g class="tree-edge">
+<path d="M280 82 L120 126"/>
+<path d="M120 151 L76 202"/>
+<path d="M120 151 L120 202"/>
+<path d="M120 151 L164 202"/>
+<path d="M280 82 L280 126"/>
+<path d="M280 151 L236 202"/>
+<path d="M280 151 L280 202"/>
+<path d="M280 151 L324 202"/>
+<path d="M280 82 L440 126"/>
+<path d="M440 151 L396 202"/>
+<path d="M440 151 L440 202"/>
+<path d="M440 151 L484 202"/>
+</g>
+<g class="tree-continuation">
+<path d="M76 217 V253"/>
+<path d="M120 217 V253"/>
+<path d="M164 217 V253"/>
+<path d="M236 217 V253"/>
+<path d="M280 217 V253"/>
+<path d="M324 217 V253"/>
+<path d="M396 217 V253"/>
+<path d="M440 217 V253"/>
+<path d="M484 217 V253"/>
+</g>
+<g class="tree-formula">
+<text x="280" y="73">cn²</text>
+<text x="120" y="143">c(n/4)²</text>
+<text x="280" y="143">c(n/4)²</text>
+<text x="440" y="143">c(n/4)²</text>
+</g>
+<g class="tree-dot">
+<circle cx="76" cy="209" r="3"/>
+<circle cx="120" cy="209" r="3"/>
+<circle cx="164" cy="209" r="3"/>
+<circle cx="236" cy="209" r="3"/>
+<circle cx="280" cy="209" r="3"/>
+<circle cx="324" cy="209" r="3"/>
+<circle cx="396" cy="209" r="3"/>
+<circle cx="440" cy="209" r="3"/>
+<circle cx="484" cy="209" r="3"/>
+</g>
+<text class="tree-note" x="280" y="239">每个节点：c(n/16)²</text>
+<g class="tree-muted">
+<text x="120" y="282">⋮</text>
+<text x="280" y="282">⋮</text>
+<text x="440" y="282">⋮</text>
+<text x="22" y="73">0</text>
+<text x="22" y="143">1</text>
+<text x="22" y="213">2</text>
+<text x="22" y="317">L</text>
+</g>
+<g class="tree-formula">
+<text x="100" y="317">d</text>
+<text x="190" y="317">d</text>
+<text x="280" y="317">d</text>
+<text x="370" y="317">d</text>
+<text x="460" y="317">d</text>
+<text class="tree-muted" x="145" y="317">⋯</text>
+<text class="tree-muted" x="235" y="317">⋯</text>
+<text class="tree-muted" x="325" y="317">⋯</text>
+<text class="tree-muted" x="415" y="317">⋯</text>
+</g>
+<g class="tree-total">
+<text x="570" y="73">cn²</text>
+<text x="570" y="143">(3/16)cn²</text>
+<text x="570" y="213">(3/16)²cn²</text>
+<text x="570" y="317">d · 3ᴸ</text>
+</g>
+</svg>
+</div>
+<figcaption id="ternary-tree-caption">每层花费乘以 3/16，逐层递减；L = log₄ n，共 3ᴸ 个叶子。</figcaption>
+</figure>
+
+<p>前两层分支完整展开，圆点表示第二层的节点。各分支继续递归，直到规模为 $1$；底部只画出部分叶子。</p>
+<table>
+<thead>
+<tr>
+<th>深度</th>
+<th>节点数</th>
+<th>单个节点花费</th>
+<th>整层花费</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$0$</td>
+<td>$1$</td>
+<td>$cn^2$</td>
+<td>$cn^2$</td>
+</tr>
+<tr>
+<td>$1$</td>
+<td>$3$</td>
+<td>$c(n&#x2F;4)^2$</td>
+<td>$cn^2(3&#x2F;16)$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td>$3^2$</td>
+<td>$c(n&#x2F;4^2)^2$</td>
+<td>$cn^2(3&#x2F;16)^2$</td>
+</tr>
+<tr>
+<td>$i&lt;L$</td>
+<td>$3^i$</td>
+<td>$c(n&#x2F;4^i)^2$</td>
+<td>$cn^2(3&#x2F;16)^i$</td>
+</tr>
+<tr>
+<td>$L$（叶子）</td>
+<td>$3^L$</td>
+<td>$d$</td>
+<td>$d\cdot3^L$</td>
+</tr>
+</tbody></table>
+<p>第 $i$ 层有 $3^i$ 个节点，每个节点花费 $c(n&#x2F;4^i)^2$，则</p>
+<p>$$<br>\text{第 }i\text{ 层花费}<br>&#x3D;3^i\cdot c\left(\frac{n}{4^i}\right)^2<br>&#x3D;cn^2\left(\frac{3}{16}\right)^i<br>$$</p>
+<p>规模降至 $1$ 时停止，由</p>
+<p>$$<br>\frac{n}{4^L}&#x3D;1<br>\quad\Longrightarrow\quad<br>L&#x3D;\log_4 n<br>$$</p>
+<p>得内部层为 $0,\ldots,L-1$，叶子有 $3^L$ 个。加<br>$$<br>T(n)&#x3D;\Theta(n^2)+\Theta(n^{\log_4 3})&#x3D;\Theta(n^2).<br>$$</p>
+<h5 id="例-2（Merge-Sort）"><a href="#例-2（Merge-Sort）" class="headerlink" title="例 2（Merge Sort）"></a>例 2（Merge Sort）</h5><p>设 $n$ 是 $2$ 的幂。规模为 $1$ 时直接返回，花费为常数 $d&gt;0$，即 $\Theta(1)$。</p>
+<p>$$<br>T(n)&#x3D;2T\left(\frac{n}{2}\right)+n,\qquad T(1)&#x3D;d<br>$$</p>
+<p>每个节点分出 $2$ 个子问题，规模缩小为原来的 $1&#x2F;2$，画出递归树。</p>
+<figure class="recursion-figure" aria-labelledby="merge-tree-caption">
+<div class="recursion-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 345" role="img" aria-labelledby="merge-tree-title merge-tree-desc">
+<title id="merge-tree-title">归并排序递归树</title>
+<desc id="merge-tree-desc">前两层对称展开，圆点代表第二层节点，其单次花费标在下方。竖向省略号表示各分支继续递归。右侧为整层总花费。</desc>
+<g class="tree-guide"><path d="M48 42 H624 M505 42 V330"/></g>
+<g class="tree-heading"><text x="22" y="24">层</text><text x="280" y="24">递归树 · 节点为本次花费</text><text x="570" y="24">整层花费</text></g>
+<g class="tree-edge">
+<path d="M280 82 L160 126"/>
+<path d="M160 151 L100 202"/>
+<path d="M160 151 L220 202"/>
+<path d="M280 82 L400 126"/>
+<path d="M400 151 L340 202"/>
+<path d="M400 151 L460 202"/>
+</g>
+<g class="tree-continuation">
+<path d="M100 217 V253"/>
+<path d="M220 217 V253"/>
+<path d="M340 217 V253"/>
+<path d="M460 217 V253"/>
+</g>
+<g class="tree-formula">
+<text x="280" y="73">n</text>
+<text x="160" y="143">n/2</text>
+<text x="400" y="143">n/2</text>
+</g>
+<g class="tree-dot">
+<circle cx="100" cy="209" r="3"/>
+<circle cx="220" cy="209" r="3"/>
+<circle cx="340" cy="209" r="3"/>
+<circle cx="460" cy="209" r="3"/>
+</g>
+<text class="tree-note" x="280" y="239">每个节点：n/4</text>
+<g class="tree-muted">
+<text x="160" y="282">⋮</text>
+<text x="400" y="282">⋮</text>
+<text x="22" y="73">0</text>
+<text x="22" y="143">1</text>
+<text x="22" y="213">2</text>
+<text x="22" y="317">L</text>
+</g>
+<g class="tree-formula">
+<text x="100" y="317">d</text>
+<text x="190" y="317">d</text>
+<text x="280" y="317">d</text>
+<text x="370" y="317">d</text>
+<text x="460" y="317">d</text>
+<text class="tree-muted" x="145" y="317">⋯</text>
+<text class="tree-muted" x="235" y="317">⋯</text>
+<text class="tree-muted" x="325" y="317">⋯</text>
+<text class="tree-muted" x="415" y="317">⋯</text>
+</g>
+<g class="tree-total">
+<text x="570" y="73">n</text>
+<text x="570" y="143">n</text>
+<text x="570" y="213">n</text>
+<text x="570" y="317">dn</text>
+</g>
+</svg>
+</div>
+<figcaption id="merge-tree-caption">每个内部层花费 n。深度 L = log₂ n 处有 n 个叶子，每个花费 d。</figcaption>
+</figure>
+
+<p>每个内部层的花费为 $n$，共有 $\log_2 n$ 层。叶子有 $n$ 个，总花费为 $dn$。相加得</p>
+<p>$$<br>T(n)&#x3D;n\log_2 n+dn&#x3D;\Theta(n\log_2 n).<br>$$</p>
+<h4 id="主方法"><a href="#主方法" class="headerlink" title="主方法"></a>主方法</h4><p>主方法依托于<strong>主定理(Master Theorem)</strong>.</p>
+<h5 id="主定理适用条件与三个情形"><a href="#主定理适用条件与三个情形" class="headerlink" title="主定理适用条件与三个情形"></a>主定理适用条件与三个情形</h5><p>主定理处理 $T(n)&#x3D;aT(n&#x2F;b)+f(n)$，其中 $a\ge 1$、$b&gt;1$ 都是常数,$p &#x3D; \log_b a$</p>
 <table>
 <thead>
 <tr>
@@ -444,8 +664,8 @@
 </tr>
 <tr>
 <td>2</td>
-<td>$f(n)&#x3D;\Theta(n^p(\log n)^k)$，某个常数 $k\ge 0$</td>
-<td>$\Theta(n^p(\log n)^{k+1})$</td>
+<td>$f(n)&#x3D;\Theta(n^p(\log_{2} n)^k)$，某个常数 $k\ge 0$</td>
+<td>$\Theta(n^p(\log_{2} n)^{k+1})$</td>
 </tr>
 <tr>
 <td>3</td>
@@ -454,60 +674,36 @@
 </tr>
 </tbody></table>
 <p>出于篇幅，略去其繁琐证明， 下面几个例子介绍其使用.</p>
-<h4 id="例子1-Strassen算法"><a href="#例子1-Strassen算法" class="headerlink" title="例子1(Strassen算法)"></a>例子1(Strassen算法)</h4><p>给出Strassen算法的递推式:<br>$$T(n)&#x3D;7T(n&#x2F;2) + \Theta(n^2)$$<br>则$a &#x3D; 7, b &#x3D; 2, f(n) &#x3D; \Theta(n^2)$<br>应用情形1,得$$T(n) &#x3D; \Theta(n^{\log{7}})$$</p>
-<h4 id="例子2-Merge-Sort"><a href="#例子2-Merge-Sort" class="headerlink" title="例子2(Merge Sort)"></a>例子2(Merge Sort)</h4><p>给出递推式:<br>$$T(n) &#x3D; 2T(n&#x2F;2) + \Theta(n)$$<br>则$a &#x3D; 2, b &#x3D; 2, f(n) &#x3D; \Theta(n)$<br>应用情形2,得$$T(n) &#x3D; \Theta(nlogn)$$</p>
-<h4 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h4><p>主方法只能处理<strong>每层均分</strong>的、$f(n)$满足<strong>特定条件</strong>的情形,没有覆盖$f(n)$.<br>其不能解决的可以通过<strong>递归树 + 归纳</strong>解决,但事实上<strong>Akra-Bazzi定理</strong>给出了更强的结论.</p>
-<h3 id="Akra-Bazzi-定理"><a href="#Akra-Bazzi-定理" class="headerlink" title="Akra-Bazzi 定理"></a>Akra-Bazzi 定理</h3><h4 id="形式与条件"><a href="#形式与条件" class="headerlink" title="形式与条件"></a>形式与条件</h4><p>考虑</p>
-<p>$$T(n)&#x3D;\sum_{i&#x3D;1}^{k}a_iT(n&#x2F;b_i)+f(n).$$</p>
-<p>使用条件：<br><strong>相近规模的成本相差不超过常数倍</strong>：存在固定常数 $C\ge1$，使充分大的 $n$ 和所有 $u\in[n&#x2F;2,n]$ 都满足</p>
-<p>$$\frac1C\le\frac{f(u)}{f(n)}\le C.$$</p>
-<p>即<strong>polynomial-growth condition</strong> 的一种等价写法：输入规模在 $n&#x2F;2$ 到 $n$ 之间变化时，$f$ 不能出现超过固定常数倍的涨落。这里的 $C$ 不能依赖 $n$ 或 $u$。</p>
-<blockquote>
-<p><strong>常见形式可以直接判断</strong>：若 $f(n)&#x3D;\Theta(n^\alpha(\log n)^\beta)$，其中 $\alpha,\beta$ 为固定实数，就满足第 4 条。<br>不满足的:$f(n) &#x3D; 2^n, f(n&#x2F;2)&#x2F;f(n)&#x3D;2^{-n&#x2F;2}\to0$，不存在固定的正下界 $1&#x2F;C$</p>
-</blockquote>
-<h4 id="定理内容"><a href="#定理内容" class="headerlink" title="定理内容"></a>定理内容</h4><p>找到唯一的实数 $p$，使</p>
-<p>$$\sum_{i&#x3D;1}^{k}\frac{a_i}{b_i^p}&#x3D;1.$$</p>
-<p>则</p>
-<p>$$T(n)&#x3D;\Theta\left(n^p\left(1+\int_{n_0}^{n}\frac{f(u)}{u^{p+1}},du\right)\right).$$</p>
-<p>这里把积分下限放在固定阈值 $n_0&gt;1$，避免 $1&#x2F;\log u$ 等函数在小规模处无定义。若 $f$ 在 $[1,n_0]$ 上的相应积分有限，也可以采用常见的下限 $1$；结果同阶。</p>
-<blockquote>
-<p><strong>直观理解</strong>：$n^p$ 给出递归结构的基准量级，积分项描述各个规模上的额外工作如何累积。</p>
-<p>括号中的 <strong>$1$ 不能漏掉</strong>：即使积分收敛到常数，仍然有 $\Theta(n^p)$ 的成本。</p>
-</blockquote>
-<p>这里给出结论，不展开证明，下面用几个例子讲解其使用.</p>
-<h4 id="例子1：不等规模的分支"><a href="#例子1：不等规模的分支" class="headerlink" title="例子1：不等规模的分支"></a>例子1：不等规模的分支</h4><p>$$T(n)&#x3D;T!\left(\frac n3\right)+T!\left(\frac{2n}{3}\right)+n.$$</p>
+<h5 id="例-1（三分支递归）-1"><a href="#例-1（三分支递归）-1" class="headerlink" title="例 1（三分支递归）"></a>例 1（三分支递归）</h5><p>给出递推式:<br>$$T(n)&#x3D;3T(n&#x2F;4)+cn^2$$<br>则$a&#x3D;3, b&#x3D;4, f(n)&#x3D;cn^2$，且$p&#x3D;\log_4 3&lt;2$。<br>由于$3f(n&#x2F;4)&#x3D;\frac{3}{16}f(n)$，应用情形3,得$$T(n)&#x3D;\Theta(n^2)$$</p>
+<h5 id="例-2（Merge-Sort）-1"><a href="#例-2（Merge-Sort）-1" class="headerlink" title="例 2（Merge Sort）"></a>例 2（Merge Sort）</h5><p>给出递推式:<br>$$T(n) &#x3D; 2T(n&#x2F;2) + \Theta(n)$$<br>则$a &#x3D; 2, b &#x3D; 2, f(n) &#x3D; \Theta(n)$<br>应用情形2,得$$T(n) &#x3D; \Theta(n\log_{2}n)$$</p>
+<h5 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h5><p>主方法只能处理<strong>每层均分</strong>的、$f(n)$满足<strong>特定条件</strong>的情形,没有覆盖$f(n)$.<br>其不能解决的可以通过<strong>递归树 + 归纳</strong>解决,但事实上<strong>推广的Akra-Bazzi定理</strong>给出了更强的结论.</p>
+<h4 id="推广的-Akra–Bazzi-定理"><a href="#推广的-Akra–Bazzi-定理" class="headerlink" title="推广的 Akra–Bazzi 定理$^*$"></a>推广的 Akra–Bazzi 定理$^*$</h4><p>定理适用极广, 但颇为复杂, 此处只介绍常见适用情形:<br>$$<br>T(x)&#x3D;\sum_{i&#x3D;1}^{k}a_iT(b_i x)+g(x),\qquad a_i&gt;0,\quad 0&lt;b_i&lt;1.<br>$$</p>
+<p>设 $a_i,b_i$ 为常数，非递归代价 $g$ 在有限区间上可积，且 $g(x)&#x3D;\Theta(x^\alpha(1+\log x)^\beta)$，其中 $\alpha,\beta$ 为固定实数。</p>
+<p>令 $p$ 为 $\sum_{i&#x3D;1}^{k}a_i b_i^p&#x3D;1$ 的唯一实根，则</p>
+<p>$$<br>T(x)&#x3D;\Theta\left(x^p\left(1+\int_{1}^{x}\frac{g(u)}{u^{p+1}}\mathrm{d}u\right)\right).<br>$$</p>
+<h5 id="例-1（不等规模的分支）"><a href="#例-1（不等规模的分支）" class="headerlink" title="例 1（不等规模的分支）"></a>例 1（不等规模的分支）</h5><p>$$<br>T(n)&#x3D;T\left(\frac{n}{3}\right)+T\left(\frac{2n}{3}\right)+n<br>$$</p>
 <p><strong>参数</strong></p>
-<p>$$a_1&#x3D;a_2&#x3D;1,\qquad b_1&#x3D;3,\qquad b_2&#x3D;\frac32,\qquad f(n)&#x3D;n.$$</p>
+<p>$$<br>a_1&#x3D;a_2&#x3D;1,\qquad b_1&#x3D;\frac{1}{3},\qquad b_2&#x3D;\frac{2}{3},\qquad g(n)&#x3D;n<br>$$</p>
 <p><strong>求 $p$</strong></p>
-<p>$$\frac{1}{3^p}+\frac{1}{(3&#x2F;2)^p}&#x3D;1<br>\quad\Longrightarrow\quad p&#x3D;1.$$</p>
+<p>$$<br>\left(\frac{1}{3}\right)^p+\left(\frac{2}{3}\right)^p&#x3D;1<br>\quad\Longrightarrow\quad p&#x3D;1<br>$$</p>
 <p><strong>计算积分</strong></p>
-<p>$$\int_{n_0}^n\frac{u}{u^2},du<br>&#x3D;\ln\frac{n}{n_0}&#x3D;\Theta(\log n).$$</p>
+<p>$$<br>\begin{aligned}<br>\int_1^{n}\frac{u}{u^2}du&#x3D;\ln n&#x3D;\Theta(\log_2 n)<br>\end{aligned}<br>$$</p>
 <p><strong>结论</strong></p>
-<p>$$T(n)&#x3D;\Theta!\bigl(n(1+\log n)\bigr)&#x3D;\Theta(n\log n).$$</p>
-<h4 id="例子2：不必精确求出-p"><a href="#例子2：不必精确求出-p" class="headerlink" title="例子2：不必精确求出 $p$"></a>例子2：不必精确求出 $p$</h4><p>$$T(n)&#x3D;T!\left(\frac n5\right)+T!\left(\frac{7n}{10}\right)+n.$$</p>
+<p>$$<br>\begin{aligned}<br>T(n)&amp;&#x3D;\Theta\bigl(n(1+\log_2 n)\bigr)&#x3D;\Theta(n\log_2 n)<br>\end{aligned}<br>$$</p>
+<h5 id="例-2（估计-p-范围）"><a href="#例-2（估计-p-范围）" class="headerlink" title="例 2（估计$p$范围）"></a>例 2（估计$p$范围）</h5><p>$$<br>T(n)&#x3D;T\left(\frac{n}{5}\right)+T\left(\frac{7n}{10}\right)+n<br>$$</p>
 <p><strong>参数</strong></p>
-<p>$$a_1&#x3D;a_2&#x3D;1,\qquad b_1&#x3D;5,\qquad b_2&#x3D;\frac{10}{7},\qquad f(n)&#x3D;n.$$</p>
+<p>$$<br>a_1&#x3D;a_2&#x3D;1,\qquad b_1&#x3D;\frac{1}{5},\qquad b_2&#x3D;\frac{7}{10},\qquad g(n)&#x3D;n<br>$$</p>
 <p><strong>求 $p$</strong></p>
-<p>$$\frac{1}{5^p}+\frac{1}{(10&#x2F;7)^p}&#x3D;1.$$</p>
+<p>$$<br>\left(\frac{1}{5}\right)^p+\left(\frac{7}{10}\right)^p&#x3D;1<br>$$</p>
 <p>方程左边随 $p$ 递减，在 $p&#x3D;0$ 时为 $2$，在 $p&#x3D;1$ 时为 $9&#x2F;10$，所以 $0&lt;p&lt;1$。判断积分的增长阶只需要这个范围。</p>
 <p><strong>计算积分</strong></p>
-<p>$$\int_{n_0}^n\frac{u}{u^{p+1}},du<br>&#x3D;\int_{n_0}^n u^{-p},du<br>&#x3D;\frac{n^{1-p}-n_0^{1-p}}{1-p}<br>&#x3D;\Theta(n^{1-p}).$$</p>
+<p>$$<br>\begin{aligned}<br>\int_1^{n}\frac{u}{u^{p+1}}du&#x3D;\int_1^{n}u^{-p}du&#x3D;\frac{n^{1-p}-1}{1-p}&#x3D;\Theta(n^{1-p})<br>\end{aligned}<br>$$</p>
 <p><strong>结论</strong></p>
-<p>$$T(n)&#x3D;\Theta!\bigl(n^p(1+n^{1-p})\bigr)&#x3D;\Theta(n).$$</p>
-<h4 id="例子3：补上主方法的空隙"><a href="#例子3：补上主方法的空隙" class="headerlink" title="例子3：补上主方法的空隙"></a>例子3：补上主方法的空隙</h4><p>$$T(n)&#x3D;2T!\left(\frac n2\right)+\frac{n}{\ln n}.$$</p>
-<p><strong>参数</strong></p>
-<p>$$a_1&#x3D;2,\qquad b_1&#x3D;2,\qquad f(n)&#x3D;\frac{n}{\ln n}.$$</p>
-<p><strong>求 $p$</strong></p>
-<p>$$\frac{2}{2^p}&#x3D;1\quad\Longrightarrow\quad p&#x3D;1.$$</p>
-<p>$f(n)$ 与分界函数 $n^p&#x3D;n$ 相差一个对数因子，因此落在主方法情形 1 和情形 2 之间。</p>
-<p><strong>计算积分</strong></p>
-<p>$$\int_{n_0}^n\frac{u&#x2F;\ln u}{u^2},du<br>&#x3D;\int_{n_0}^n\frac{1}{u\ln u},du<br>&#x3D;\ln\ln n-\ln\ln n_0<br>&#x3D;\Theta(\log\log n).$$</p>
-<p><strong>结论</strong></p>
-<p>$$T(n)&#x3D;\Theta!\bigl(n(1+\log\log n)\bigr)&#x3D;\Theta(n\log\log n).$$</p>
-<p>有时可能某个操作的代价特别高，但总体上来看并非那么糟糕，因而引入<strong>摊还分析</strong>的概念.</p>
+<p>$$<br>\begin{aligned}<br>T(n)&#x3D;\Theta\bigl(n^p(1+n^{1-p})\bigr)&#x3D;\Theta(n)<br>\end{aligned}<br>$$</p>
 <hr>
-<h3 id="摊还分析（Amortized-Analysis）"><a href="#摊还分析（Amortized-Analysis）" class="headerlink" title="摊还分析（Amortized Analysis）"></a>摊还分析（Amortized Analysis）</h3><p>摊还分析用来评价某个数据结构的一系列操作的<strong>平均代价</strong>, 有三种常用的技术：<strong>聚合分析，核算法，势能法</strong>。</p>
-<h4 id="聚合分析（Aggregate-Analysis）"><a href="#聚合分析（Aggregate-Analysis）" class="headerlink" title="聚合分析（Aggregate Analysis）"></a>聚合分析（Aggregate Analysis）</h4><p>若任意 $m$ 次操作的总成本至多为 $F(m)$，<strong>统一</strong>分摊后，每次成本至多为 $F(m)&#x2F;m$</p>
+<h3 id="摊还分析（Amortized-Analysis）"><a href="#摊还分析（Amortized-Analysis）" class="headerlink" title="摊还分析（Amortized Analysis）"></a>摊还分析（Amortized Analysis）</h3><p>有时可能某个操作的代价特别高，但总体上来看并非那么糟糕，因而引入<strong>摊还分析</strong>的概念.</p>
+<p>摊还分析用来评价某个数据结构的一系列操作的<strong>平均代价</strong>, 有三种常用的技术：<strong>聚合分析，核算法，势能法</strong>。</p>
+<h4 id="聚合分析（Aggregate-Analysis）"><a href="#聚合分析（Aggregate-Analysis）" class="headerlink" title="聚合分析（Aggregate Analysis）"></a>聚合分析（Aggregate Analysis）</h4><p>若任意 $m$ 次操作的总成本至多为 $F(m)$，<strong>统一</strong>分摊后，每次成本至多为 $\frac{F(m)}{m}$</p>
 <h4 id="核算法（Accounting-Method）"><a href="#核算法（Accounting-Method）" class="headerlink" title="核算法（Accounting Method）"></a>核算法（Accounting Method）</h4><p>赋予一个操作<strong>摊还代价$\widehat c_t$</strong>,该操作<strong>真实代价</strong>为$c_t$.<br>当$\widehat c_t &gt; c_t$时, 定义$\widehat c_t - c_t$为信用(credits)<br>为了确保<strong>摊还代价的和</strong>能<strong>给出</strong>真实代价的<strong>上界</strong>, 要求:<br>$$\sum_{t&#x3D;1}^n \widehat c_t \ge \sum_{t&#x3D;1}^n c_t$$即总信用始终为非负值</p>
 <h4 id="势能法（Potential-Method）"><a href="#势能法（Potential-Method）" class="headerlink" title="势能法（Potential Method）"></a>势能法（Potential Method）</h4><p>给每个<strong>数据结构</strong> $D$ 定义<strong>势能 $\Phi(D)$</strong><br>定义摊还代价<br>$$\widehat c_t&#x3D;c_t+\Phi(D_t)-\Phi(D_{t-1}).$$</p>
 <p>求和:<br>$$\sum_{t&#x3D;1}^n \widehat c_t&#x3D;\sum_{t&#x3D;1}^n  c_t+\Phi(D_n)-\Phi(D_0).$$<br>同样的,我们要求:<br>$$\Phi(D_n)-\Phi(D_0) \ge 0$$<br>通常简单定义$\Phi(D_0)&#x3D;0$</p>
@@ -531,7 +727,7 @@
 <td>势能法</td>
 </tr>
 </tbody></table>
-<h4 id="例子1（动态数组扩容）"><a href="#例子1（动态数组扩容）" class="headerlink" title="例子1（动态数组扩容）"></a>例子1（动态数组扩容）</h4><p>数组初始为空，容量为 $1$。每次只在尾部插入。若数组已满，就把容量翻倍，复制所有旧元素，再写入新元素。每写入或复制一个元素计 $1$ 个单位花费。<br>一般地，从空数组开始尾插 $m$ 次，求每次的摊还时间。</p>
+<h4 id="例-1（动态数组扩容）"><a href="#例-1（动态数组扩容）" class="headerlink" title="例 1（动态数组扩容）"></a>例 1（动态数组扩容）</h4><p>数组初始为空，容量为 $1$。每次只在尾部插入。若数组已满，就把容量翻倍，复制所有旧元素，再写入新元素。每写入或复制一个元素计 $1$ 个单位花费。<br>一般地，从空数组开始尾插 $m$ 次，求每次的摊还时间。</p>
 <h5 id="聚合分析"><a href="#聚合分析" class="headerlink" title="聚合分析"></a>聚合分析</h5><p>若最后一次扩容复制了 $2^k$ 项，它必然发生在第 $2^k+1$ 次插入，因此 $2^k&lt;m$。把每次扩容的复制量加起来，再计入 $m$ 次新元素写入。</p>
 <p>$$m+\sum_{j&#x3D;0}^{k}2^j&#x3D;m+2^{k+1}-1&lt;3m.$$</p>
 <p>没有扩容时总成本为 $m$。则加上扩容, 总成本为 $\Theta(m)$，每次摊还 $\Theta(1)$。</p>
@@ -574,8 +770,38 @@
 <p>$$\sum_{t&#x3D;1}^m c_t<br>&#x3D;\sum_{t&#x3D;1}^m\widehat c_t+\Phi(D_0)-\Phi(D_m)<br>&#x3D;3m-\Phi(D_m)\le3m.$$</p>
 <p>每次摊还时间为 $\Theta(1)$。</p>
 <hr>
-<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><hr>
-<p>值得一提的是: 时间复杂度分析<strong>忽略</strong>了常数项和低阶量,因此在工程中复杂度低的算法<strong>不一定</strong>是<strong>最优</strong>的,参考Opus 5.5得出的 <a target="_blank" rel="noopener" href="https://www.vals.ai/blogs/faster-shortest-path-algorithm">最短路新算法</a></p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>与时间复杂度不同的是，我们通常只关注空间复杂度的<strong>上界</strong>。(因为实际运行中对空间有限制)<br>最差有两层含义:</p>
+<ul>
+<li>以<strong>最差输入</strong>数据为准</li>
+<li>执行过程中的空间<strong>峰值</strong></li>
+</ul>
+<h3 id="计算方法"><a href="#计算方法" class="headerlink" title="计算方法"></a>计算方法</h3><ol>
+<li><strong>算大小</strong>:固定大小的变量和引用各占 $\Theta(1)$ 个机器字。容量为 $k$ 的数组占 $\Theta(k)$ 个字。</li>
+<li><strong>看存续时间</strong>:同一时刻占用的空间相加，空间释放后可以复用。分阶段计算时，要把先前阶段留下的数据也算进去。</li>
+<li><strong>取峰值</strong>:在各个时刻的占用量中取最大值。</li>
+</ol>
+<h4 id="例-1（三分支递归中的临时数组）"><a href="#例-1（三分支递归中的临时数组）" class="headerlink" title="例 1（三分支递归中的临时数组）"></a>例 1（三分支递归中的临时数组）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">pair_work</span>(<span class="hljs-params">a, lo, hi</span>):<br>    n = hi - lo<br>    total = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>        buf = [<span class="hljs-literal">False</span>] * n<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>            buf[j - lo] = a[i] == a[j]<br>        total += <span class="hljs-built_in">sum</span>(buf)<br>        <span class="hljs-keyword">del</span> buf<br>    <span class="hljs-keyword">return</span> total<br></code></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li><code>pair_work</code> 每轮释放对 <code>buf</code> 的唯一引用，最多同时保留一个长度为 $n$ 的数组，辅助空间为 $\Theta(n)$。</li>
+<li><code>count_pairs</code> 在子调用前完成 <code>pair_work</code>。各层的临时数组不会同时保留，加上 $\Theta(\log_4 n)$ 的调用栈，辅助空间仍为 $\Theta(n)$。</li>
+</ul>
+<h3 id="递归的空间复杂度"><a href="#递归的空间复杂度" class="headerlink" title="递归的空间复杂度"></a>递归的空间复杂度</h3><p>子调用执行时，父调用仍在栈上。<strong>沿当前调用路径加和，对不同路径取最大值</strong>。<br>设某个子问题大小为 $m$，它运行期间父调用保留 $R$ 的空间，子调用自身的峰值为 $S(m)$。<br>空间复杂度即为$$max{(R+S(m))}$$</p>
+<h4 id="例-2（Fibonacci）"><a href="#例-2（Fibonacci）" class="headerlink" title="例 2（Fibonacci）"></a>例 2（Fibonacci）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fib</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> n<br>    <span class="hljs-keyword">return</span> (fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>每个 <code>fib</code> 栈帧只保存固定数量的中间结果，占 $\Theta(1)$。最深的调用路径同时有 $\Theta(n)$ 个栈帧，辅助空间为 $\Theta(n)$。</li>
+</ul>
+<h4 id="例-3（Merge-Sort）-1"><a href="#例-3（Merge-Sort）-1" class="headerlink" title="例 3（Merge Sort）"></a>例 3（Merge Sort）</h4><p>在原数组上排序，用一份缓冲区完成合并。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">merge_sort</span>(<span class="hljs-params">a</span>):<br>    buf = [<span class="hljs-literal">None</span>] * <span class="hljs-built_in">len</span>(a)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">sort</span>(<span class="hljs-params">lo, hi</span>):  <span class="hljs-comment"># 排序区间 [lo, hi)</span><br>        <span class="hljs-keyword">if</span> hi - lo &lt;= <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span><br>        mid = (lo + hi) // <span class="hljs-number">2</span><br>        sort(lo, mid)<br>        sort(mid, hi)<br><br>        i, j = lo, mid<br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>            <span class="hljs-keyword">if</span> j == hi <span class="hljs-keyword">or</span> (i &lt; mid <span class="hljs-keyword">and</span> a[i] &lt;= a[j]):<br>                buf[k] = a[i]<br>                i += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                buf[k] = a[j]<br>                j += <span class="hljs-number">1</span><br><br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lo, hi):<br>            a[k] = buf[k]<br><br>    sort(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(a))<br></code></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析</strong></p>
+<p><code>buf</code> 在递归前分配一次，所有调用共享，占 $\Theta(n)$。两次 <code>sort</code> 顺序执行，栈上只保留当前调用路径。每个栈帧占 $\Theta(1)$，最深处有 $\Theta(\log n)$ 个栈帧。</p>
+<p>$$<br>S(n)&#x3D;\Theta(n)+\Theta(\log n)&#x3D;\Theta(n).<br>$$</p>
+<p>若把缓冲区移到每次 <code>sort</code> 入口，按 <code>hi - lo</code> 分配，并用 <code>k - lo</code> 作为缓冲区下标，最深处的缓冲区按调用路径相加。设 $n&#x3D;2^L$，则</p>
+<h2 id="n-frac-n-2-frac-n-4-cdots-1-2n-1-Theta-n"><a href="#n-frac-n-2-frac-n-4-cdots-1-2n-1-Theta-n" class="headerlink" title="$$n+\frac{n}{2}+\frac{n}{4}+\cdots+1&#x3D;2n-1&#x3D;\Theta(n).$$"></a>$$<br>n+\frac{n}{2}+\frac{n}{4}+\cdots+1&#x3D;2n-1&#x3D;\Theta(n).<br>$$</h2><p>值得一提的是: 时间复杂度分析<strong>忽略</strong>了常数项和低阶量,因此在工程中复杂度低的算法<strong>不一定</strong>是<strong>最优</strong>的,参考Opus 5.5得出的 <a target="_blank" rel="noopener" href="https://www.vals.ai/blog_%7B2%7Ds/faster-shortest-path-algorithm">最短路新算法</a></p>
 
                 
               </div>
