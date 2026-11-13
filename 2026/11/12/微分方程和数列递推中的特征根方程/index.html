@@ -27,7 +27,7 @@
 <meta property="og:description" content="从解空间、线性算子与伴随矩阵出发，解释特征根法的来源、重根与 Jordan 块的关系，以及线性递推和微分方程的统一结构。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-12T09:36:42.000Z">
-<meta property="article:modified_time" content="2026-11-13T08:40:35.305Z">
+<meta property="article:modified_time" content="2026-11-13T08:44:20.306Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="微分方程">
 <meta property="article:tag" content="数列递推">
@@ -465,7 +465,9 @@
 <p>写成矩阵形式:<br>$$<br>\begin{pmatrix}<br>r&amp;1&amp;0&amp;\cdots&amp;0\\<br>0&amp;r&amp;1&amp;\cdots&amp;0\\<br>\vdots&amp;&amp;\ddots&amp;\ddots&amp;\vdots\\<br>0&amp;\cdots&amp;0&amp;r&amp;1\\<br>0&amp;\cdots&amp;0&amp;0&amp;r<br>\end{pmatrix}.<br>$$<br>这正是<strong>Jordan块</strong><br>$$<br>J_r &#x3D; rI + N<br>$$</p>
 <p>其中 $N$ 满足 $N^s &#x3D; 0$, 表示上移一位.<br>$J_r$ 即对应特征值为 $r$ 的<strong>一条链</strong>.</p>
 <p>$s$重根对应 $v_1 \dots v_s$, 所有的 $J_r$ 即对应 $m$ 个<strong>线性无关</strong>的向量，组成整个坐标空间的一组<strong>基</strong>。<br>将这些基向量按列排列，链内按照 $(v_1,\ldots,v_s)$ 的顺序排列，得到换基矩阵 $P$，于是<br>$$<br>\boxed{<br>A&#x3D;PJP^{-1},\qquad<br>J&#x3D;\operatorname{diag}(J_{r_1},\ldots,J_{r_l}).<br>}<br>$$</p>
-<p>其中 $P &#x3D; (v_1, v_2, v_3,\dots, v_m)$，$J$即为$P$下的线性变换对应的矩阵。<br><strong>关键</strong>: 换基可以<strong>混合</strong>各个解，但<strong>不会改变它们张成的解空间</strong><br>因此可以通过 $J$ 找到原解空间的基。<br>对于递推, 考虑$s$重根:<br>$$<br>A^n &#x3D; (PJP^{-1})^n &#x3D; PJ^nP^{-1}&#x3D;P\operatorname{diag}(J_{r_1}^n,\ldots,J_{r_l}^n)P^{-1}<br>$$</p>
+<p>其中 $P &#x3D; (v_1, v_2, v_3,\dots, v_m)$，$J$即为$P$下的线性变换对应的矩阵。</p>
+<p><strong>关键</strong>: 换基可以<strong>混合</strong>各个解，但<strong>不会改变它们张成的解空间</strong><br>因此可以通过 $J$ 找到原解空间的基。</p>
+<p>对于递推, 考虑$s$重根:<br>$$<br>A^n &#x3D; (PJP^{-1})^n &#x3D; PJ^nP^{-1}&#x3D;P\operatorname{diag}(J_{r_1}^n,\ldots,J_{r_l}^n)P^{-1}<br>$$</p>
 <p>而<br>$$<br>J_r^n &#x3D; (rI+N)^n &#x3D; \sum_{k&#x3D;0}^{s-1}\binom nk r^{n-k}N^k.<br>$$</p>
 <p>$\binom nk$ 是 $n$ 的 $k$ 次多项式，相应解可以写成<br>$$<br>r^n,\quad nr^n,\quad \dots,\quad n^{s-1}r^n.<br>$$</p>
 <p>对于微分方程, 考虑$s$重根:<br>$$<br>e^{xA} &#x3D; e^{xPJP^{-1}} &#x3D; Pe^{xJ}P^{-1}&#x3D;P\operatorname{diag}(e^{xJ_{r_1}},\ldots,e^{xJ_{r_l}})P^{-1}<br>$$</p>
