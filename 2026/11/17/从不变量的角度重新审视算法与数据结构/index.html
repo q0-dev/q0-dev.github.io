@@ -21,13 +21,13 @@
   
     <meta name="description" content="本文记载了笔者对于不变量的思考">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法与数据结构中的不变量">
+<meta property="og:title" content="从不变量的角度重新审视算法与数据结构">
 <meta property="og:url" content="https://q0-dev.github.io/2026/11/17/%E4%BB%8E%E4%B8%8D%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%92%E5%BA%A6%E9%87%8D%E6%96%B0%E5%AE%A1%E8%A7%86%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="q0-dev&#39;s blog">
 <meta property="og:description" content="本文记载了笔者对于不变量的思考">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-17T05:19:48.000Z">
-<meta property="article:modified_time" content="2026-11-17T11:17:11.387Z">
+<meta property="article:modified_time" content="2026-11-17T11:57:59.854Z">
 <meta property="article:author" content="q0-dev">
 <meta property="article:tag" content="不变量">
 <meta property="article:tag" content="算法">
@@ -35,7 +35,7 @@
   
   
   
-  <title>算法与数据结构中的不变量 - q0-dev&#39;s blog</title>
+  <title>从不变量的角度重新审视算法与数据结构 - q0-dev&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -308,7 +308,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="算法与数据结构中的不变量"></span>
+            <span id="subtitle" data-typed-text="从不变量的角度重新审视算法与数据结构"></span>
           
         </div>
 
@@ -331,7 +331,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          4.9k 字
         
       </span>
     
@@ -342,7 +342,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -382,7 +382,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">算法与数据结构中的不变量</h1>
+            <h1 id="seo-header">从不变量的角度重新审视算法与数据结构</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -398,32 +398,36 @@
                 <blockquote>
 <p>你是否认为写对二分、多指针算法是玄学?<br>数据结构为什么要那样设计?<br>本文将从不变量的角度谈谈笔者的理解</p>
 </blockquote>
-<h2 id="什么是不变量-invariant"><a href="#什么是不变量-invariant" class="headerlink" title="什么是不变量(invariant)?"></a>什么是<strong>不变量(invariant)</strong>?</h2><p>不变量不是常量, 笔者认为解释为<strong>恒定</strong>的<strong>规律</strong>&#x2F;<strong>关系</strong>是合适的。<br>常见的不变量: </p>
+<h2 id="什么是不变量-invariant"><a href="#什么是不变量-invariant" class="headerlink" title="什么是不变量(invariant)?"></a>什么是<strong>不变量(invariant)</strong>?</h2><p>不变量不是常量, 笔者认为解释为<strong>恒定</strong>的<strong>规律</strong>&#x2F;<strong>关系</strong>是合适的。 常见的不变量:</p>
 <ul>
-<li>算法中的不变量:<ul>
-<li>滑动窗口: <code>[left, right]</code> 内的子数组始终是满足要求的合法区间</li>
+<li><p>算法中的不变量:</p>
+<ul>
+<li>滑动窗口: <code>[left, right]</code> 内的子数组是满足要求的合法区间</li>
 <li>…</li>
 </ul>
 </li>
-<li>数据结构中的不变量<ul>
-<li>单调栈: 栈里的元素从栈底到栈顶，严格保持单调递减</li>
+<li><p>数据结构中的不变量</p>
+<ul>
+<li>单调栈: 栈里的元素从栈底到栈顶保持单调</li>
 <li>AVL 树: 任意节点的左右子树高度差绝对值 $\le 1$</li>
 <li>…</li>
 </ul>
 </li>
 </ul>
-<p>可见:<br>维护不变量一方面是为了<strong>满足特定要求</strong>(算法), 同时也相当于<strong>增强了条件</strong>(数据结构), 进而使结构有一些<strong>好的性质</strong>(比如降低最坏情况的时间复杂度)。</p>
+<p>可见: </p>
+<p>维护不变量一方面是为了<strong>满足特定要求</strong>(算法), 同时也相当于<strong>增强了条件</strong>(数据结构), 进而使结构有一些<strong>好的性质</strong>(比如降低最坏情况的时间复杂度)。</p>
 <h2 id="如何应用不变量"><a href="#如何应用不变量" class="headerlink" title="如何应用不变量"></a>如何应用不变量</h2><p>流程:</p>
 <ol>
 <li>确定不变量(根据特定要求、需要的条件等)</li>
-<li>维护不变量<ul>
+<li>维护不变量</li>
+</ol>
+<ul>
 <li><strong>初始化</strong>($n&#x3D;1$)</li>
 <li><strong>保持</strong>($n&#x3D;k \implies n&#x3D;k+1$成立)</li>
-<li><strong>终止</strong>($\forall n$成立)</li>
+<li><strong>终止</strong>(结合不变量与退出条件推出所需结果, 并另外证明算法会终止)</li>
 </ul>
-</li>
-</ol>
-<p>是的, 应用不变量实际上是一个<strong>归纳</strong>的过程。<br>这样就保证了算法满足要求, 数据结构满足好的性质。</p>
+<p>是的, 应用不变量实际上是一个<strong>归纳</strong>的过程。</p>
+<p>这样就保证了算法满足要求, 数据结构满足好的性质。</p>
 <p>下面笔者将从算法和数据结构两方面谈谈不变量的具体应用（下文涉及的复杂度分析方法可参考笔者的另一篇文章：<a href="/2026/11/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" title="算法复杂度分析">算法复杂度分析</a>）。</p>
 <h3 id="算法中的不变量应用"><a href="#算法中的不变量应用" class="headerlink" title="算法中的不变量应用"></a>算法中的不变量应用</h3><h4 id="例1-插入排序"><a href="#例1-插入排序" class="headerlink" title="例1(插入排序)"></a>例1(插入排序)</h4><p><strong>不变量</strong>: <code>nums[0 ... i-1]</code> 由原数组<strong>前 i 个元素</strong>组成，且内部<strong>有序</strong></p>
 <ul>
@@ -435,20 +439,31 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">insertion_sort_iter</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> length)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; length; ++i) &#123;<br>        <span class="hljs-comment">// nums[0..i-1] is sorted; insert nums[i].</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i; j &gt; <span class="hljs-number">0</span> &amp;&amp; nums[j - <span class="hljs-number">1</span>] &gt; nums[j]; --j) &#123;<br>            swap(&amp;nums[j], &amp;nums[j - <span class="hljs-number">1</span>]);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（直接加和）：记 $n &#x3D; \text{length}$。最好情况（已升序）每轮比较 $1$ 次，$T(n) &#x3D; \Omega(n)$；最坏情况（逆序）$T(n) &#x3D; \sum_{i&#x3D;1}^{n-1} i &#x3D; \Theta(n^2)$，故时间复杂度为 $O(n^2)$；原地交换，空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
+<li><strong>复杂度分析</strong>（直接加和）：<ul>
+<li>记 $n &#x3D; \text{length}$。最好情况（已升序）每轮比较 $1$ 次，$T(n) &#x3D; \Omega(n)$；</li>
+<li>最坏情况（逆序）$T(n) &#x3D; \sum_{i&#x3D;1}^{n-1} i &#x3D; \Theta(n^2)$，故时间复杂度为 $O(n^2)$；</li>
+<li>原地交换，空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
 </ul>
-<h4 id="例2-选择排序"><a href="#例2-选择排序" class="headerlink" title="例2(选择排序)"></a>例2(选择排序)</h4><p>以升序为例.<br>不变量: <code>nums[0..i-1]</code> 是全数组最小的 <code>i</code> 个数</p>
+</li>
+</ul>
+<h4 id="例2-选择排序"><a href="#例2-选择排序" class="headerlink" title="例2(选择排序)"></a>例2(选择排序)</h4><p>以升序为例.</p>
+<p><strong>不变量</strong>: <code>nums[0..i-1]</code> 是全数组最小的 <code>i</code> 个数, 且内部有序</p>
 <ul>
-<li><strong>初始化</strong>: <code>i=1</code>找全数组最小值</li>
-<li><strong>保持</strong>: 找<code>k</code>之后的最小值作为 <code>nums[k+1]</code></li>
+<li><strong>初始化</strong>: <code>i=0</code>, 前缀为空, 自然成立</li>
+<li><strong>保持</strong>: 找 <code>nums[i..length-1]</code> 中的最小值, 与 <code>nums[i]</code> 交换</li>
 <li><strong>终止</strong>: 结果升序</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">selection_sort_iter</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> length)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length - <span class="hljs-number">1</span>; ++i) &#123;<br>        <span class="hljs-comment">// find prefix_min_idx</span><br>        <span class="hljs-type">int</span> min_idx = i;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i + <span class="hljs-number">1</span>; j &lt; length; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (nums[j] &lt; nums[min_idx]) &#123;<br>                min_idx = j;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// swap nums[i] and nums[min_idx]</span><br>        swap(&amp;nums[i], &amp;nums[min_idx]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（直接加和）：内层循环固定比较 $n - 1 - i$ 次，$T(n) &#x3D; \sum_{i&#x3D;0}^{n-2}(n - 1 - i) &#x3D; \Theta(n^2)$；空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
+<li><strong>复杂度分析</strong>（直接加和）：<ul>
+<li>内层循环固定比较 $n - 1 - i$ 次，$T(n) &#x3D; \sum_{i&#x3D;0}^{n-2}(n - 1 - i) &#x3D; \Theta(n^2)$；</li>
+<li>空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
 </ul>
-<h4 id="例3-二分查找"><a href="#例3-二分查找" class="headerlink" title="例3(二分查找)"></a>例3(二分查找)</h4><p>以升序数组、闭区间 <code>[left, right]</code> 为例.<br><strong>不变量</strong>: 若 <code>target</code> 存在, 则其下标必在 <code>[left, right]</code> 内</p>
+</li>
+</ul>
+<h4 id="例3-二分查找"><a href="#例3-二分查找" class="headerlink" title="例3(二分查找)"></a>例3(二分查找)</h4><p>以升序数组、闭区间 <code>[left, right]</code> 为例.</p>
+<p><strong>不变量</strong>: 若 <code>target</code> 存在, 则其下标必在 <code>[left, right]</code> 内</p>
 <ul>
 <li><strong>初始化</strong>: <code>left = 0, right = length - 1</code>, 覆盖全数组, 自然成立</li>
 <li><strong>保持</strong>: 比较 <code>nums[mid]</code> 与 <code>target</code>, 排除不满足的一半, 令 <code>left = mid + 1</code> 或 <code>right = mid - 1</code></li>
@@ -457,32 +472,46 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">binary_search</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> length, <span class="hljs-type">int</span> target)</span> &#123;<br>    <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = length - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (left &lt;= right) &#123;<br>        <span class="hljs-type">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span> (nums[mid] == target) &#123;<br>            <span class="hljs-keyword">return</span> mid;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;<br>            left = mid + <span class="hljs-number">1</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right = mid - <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（建立递推 + 主方法）：每轮规模减半，最坏情况 $T(n) &#x3D; T(n&#x2F;2) + \Theta(1)$，由主定理情形 2 得 $T(n) &#x3D; \Theta(\log_2 n)$（整体 $O(\log_2 n)$）；空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
+<li><strong>复杂度分析</strong>（建立递推 + 主方法）：<ul>
+<li>每轮规模减半，最坏情况 $T(n) &#x3D; T(n&#x2F;2) + \Theta(1)$，由主定理情形 2 得 $T(n) &#x3D; \Theta(\log_2 n)$（整体 $O(\log_2 n)$）；</li>
+<li>空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
 </ul>
-<h4 id="例4-快速排序-partition"><a href="#例4-快速排序-partition" class="headerlink" title="例4(快速排序 partition)"></a>例4(快速排序 partition)</h4><p>多指针的本质是用指针作<strong>隔板</strong>, 划分已知区与未知区.<br>选 <code>pivot = nums[length - 1]</code>, 维护快慢指针 <code>i, j</code>:<br><strong>不变量</strong>: <code>nums[0..i-1] &lt; pivot</code>, <code>nums[i..j-1] &gt;= pivot</code>, <code>nums[j..length-2]</code> 待扫描</p>
+</li>
+</ul>
+<h4 id="例4-快速排序-partition"><a href="#例4-快速排序-partition" class="headerlink" title="例4(快速排序 partition)"></a>例4(快速排序 partition)</h4><p>多指针的本质是用指针作<strong>隔板</strong>, 划分已知区与未知区.</p>
+<p>选 <code>pivot = nums[length - 1]</code>, 维护快慢指针 <code>i, j</code>:</p>
+<p><strong>不变量</strong>: <code>nums[0..i-1] &lt; pivot</code>, <code>nums[i..j-1] &gt;= pivot</code>, <code>nums[j..length-2]</code> 待扫描</p>
 <ul>
-<li><strong>初始化</strong>: <code>i = 0, j = 0</code>, 区间为空, 自然成立</li>
+<li><strong>初始化</strong>: <code>i = 0, j = 0</code>, 前两个区间为空, 自然成立</li>
 <li><strong>保持</strong>: 若 <code>nums[j] &lt; pivot</code>, 交换 <code>nums[i]</code> 与 <code>nums[j]</code> 并 <code>i++</code>; 随后 <code>j++</code></li>
 <li><strong>终止</strong>: <code>j = length - 1</code> 扫描完毕, 交换 <code>nums[i]</code> 与 <code>nums[length - 1]</code>, <code>pivot</code> 归位</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> length)</span> &#123;<br>    <span class="hljs-type">int</span> pivot = nums[length - <span class="hljs-number">1</span>];<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; length - <span class="hljs-number">1</span>; j++) &#123;<br>        <span class="hljs-keyword">if</span> (nums[j] &lt; pivot) &#123;<br>            swap(&amp;nums[i], &amp;nums[j]);<br>            i++;<br>        &#125;<br>    &#125;<br>    swap(&amp;nums[i], &amp;nums[length - <span class="hljs-number">1</span>]);<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（直接加和）：<code>j</code> 单次线性扫描，单次划分 $T(n) &#x3D; (n - 1)\cdot\Theta(1) &#x3D; \Theta(n)$，空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
+<li><strong>复杂度分析</strong>（直接加和）：<ul>
+<li><code>j</code> 单次线性扫描，单次划分 $T(n) &#x3D; (n - 1)\cdot\Theta(1) &#x3D; \Theta(n)$，</li>
+<li>空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
 </ul>
-<h4 id="例5-滑动窗口"><a href="#例5-滑动窗口" class="headerlink" title="例5(滑动窗口)"></a>例5(滑动窗口)</h4><p><strong>不变量</strong>: <code>[left, right]</code> 始终为满足条件的合法区间</p>
+</li>
+</ul>
+<h4 id="例5-滑动窗口"><a href="#例5-滑动窗口" class="headerlink" title="例5(滑动窗口)"></a>例5(滑动窗口)</h4><p>以下模板求最长合法区间.</p>
+<p><strong>不变量</strong>: 每轮收缩结束后, <code>[left, right]</code> 为满足条件的合法区间</p>
 <ul>
-<li><strong>初始化</strong>: <code>left = 0, right = 0</code></li>
-<li><strong>保持</strong>: <code>right++</code> 移入新元素; 若破坏合法性, 则不断 <code>left++</code> 移出左端元素直至重新合法</li>
-<li><strong>终止</strong>: <code>right</code> 到达末尾, 遍历完所有合法窗口</li>
+<li><strong>初始化</strong>: <code>left = 0, ans = 0</code>, 加入第一个元素前窗口为空</li>
+<li><strong>保持</strong>: 移入 <code>nums[right]</code>; 若破坏合法性, 则不断 <code>left++</code> 移出左端元素直至重新合法; 随后 <code>right++</code></li>
+<li><strong>终止</strong>: <code>right</code> 到达末尾, 已考察每个右端点对应的最长合法窗口</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> right = <span class="hljs-number">0</span>; right &lt; length; ++right) &#123;<br>    add(nums[right]);<br>    <span class="hljs-keyword">while</span> (!valid(left, right)) &#123;<br>        remove(nums[left++]);<br>    &#125;<br>    ans = max(ans, right - left + <span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, ans = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> right = <span class="hljs-number">0</span>; right &lt; length; ++right) &#123;<br>    add(nums[right]);<br>    <span class="hljs-keyword">while</span> (!valid(left, right)) &#123;<br>        remove(nums[left++]);<br>    &#125;<br>    ans = max(ans, right - left + <span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（摊还分析 - 聚合分析）：设单步操作为 $\Theta(1)$。每个元素随 <code>right++</code> 入窗 $1$ 次、随 <code>left++</code> 至多出窗 $1$ 次，总操作数 $\le 2n$，故总时间 $T(n) &#x3D; \Theta(n)$，单步摊还 $\Theta(1)$；空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
+<li><strong>复杂度分析</strong>（摊还分析 - 聚合分析）：<ul>
+<li>设单步操作为 $\Theta(1)$。每个元素随 <code>right++</code> 入窗 $1$ 次、随 <code>left++</code> 至多出窗 $1$ 次，总入窗、出窗次数 $\le 2n$，故总时间 $T(n) &#x3D; \Theta(n)$，每轮外层迭代摊还 $\Theta(1)$；</li>
+<li>空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
 </ul>
-<h3 id="数据结构中的不变量应用"><a href="#数据结构中的不变量应用" class="headerlink" title="数据结构中的不变量应用"></a>数据结构中的不变量应用</h3><p>数据结构中的修改操作往往会暂时打破不变量, 后续调整即为恢复不变量的过程.</p>
-<table>
+</li>
+</ul>
+<h3 id="数据结构中的不变量应用"><a href="#数据结构中的不变量应用" class="headerlink" title="数据结构中的不变量应用"></a>数据结构中的不变量应用</h3><table>
 <thead>
 <tr>
 <th>数据结构</th>
@@ -493,13 +522,13 @@
 </thead>
 <tbody><tr>
 <td><strong>链表 (LList)</strong></td>
-<td><code>length</code> 等于实际节点数; 双向链表 <code>p-&gt;next-&gt;prev == p</code></td>
+<td><code>length</code> 等于实际节点数; 双向链表在 <code>p-&gt;next</code> 非空时有 <code>p-&gt;next-&gt;prev == p</code></td>
 <td>插入&#x2F;删除时同步更新 <code>length</code> 与前后指针</td>
-<td>$\Theta(1)$ 获取长度、双向遍历</td>
+<td>$\Theta(1)$ 获取长度、$\Theta(n)$ 双向遍历</td>
 </tr>
 <tr>
 <td><strong>单调栈</strong></td>
-<td>栈底到栈顶严格单调</td>
+<td>栈底到栈顶单调</td>
 <td>入栈前弹出所有破坏单调性的栈顶元素</td>
 <td>均摊 $\Theta(1)$ 找最近更大&#x2F;更小元</td>
 </tr>
@@ -507,27 +536,33 @@
 <td><strong>二叉堆 (Heap)</strong></td>
 <td>完全二叉树 + 父节点 $\ge$ 子节点</td>
 <td>尾插后上浮 (<code>sift_up</code>), 弹出堆顶后下沉 (<code>sift_down</code>)</td>
-<td>$\Theta(1)$ 查最值, $\Theta(\log n)$ 修改</td>
+<td>$\Theta(1)$ 查最值, 插入&#x2F;删除堆顶最坏 $\Theta(\log n)$（不计扩容）</td>
 </tr>
 <tr>
 <td><strong>AVL 树</strong></td>
-<td>BST 性质 + 左右子树高度差 $\le 1$</td>
+<td>BST 性质 + 左右子树高度差的绝对值 $\le 1$</td>
 <td>插入&#x2F;删除失衡时左旋、右旋</td>
 <td>树高维持 $\Theta(\log n)$</td>
 </tr>
 </tbody></table>
-<h4 id="例1-单调栈"><a href="#例1-单调栈" class="headerlink" title="例1(单调栈)"></a>例1(单调栈)</h4><p>求每个元素右侧第一个更大元素的下标.<br><strong>不变量</strong>: 栈内下标对应的元素从栈底到栈顶严格单调递减</p>
+<h4 id="例1-单调栈"><a href="#例1-单调栈" class="headerlink" title="例1(单调栈)"></a>例1(单调栈)</h4><p>求每个元素右侧第一个更大元素的下标.</p>
+<p><strong>不变量</strong>: 栈内下标对应的元素从栈底到栈顶单调不增</p>
 <ul>
 <li><strong>初始化</strong>: 栈空, 自然成立</li>
-<li><strong>保持</strong>: 新元素 <code>nums[i]</code> 入栈前, 持续弹出 $\le \text{nums}[i]$ 的栈顶元素, 再将 <code>i</code> 入栈</li>
+<li><strong>保持</strong>: 新元素 <code>nums[i]</code> 入栈前, 持续弹出 $&lt; \text{nums}[i]$ 的栈顶元素, 再将 <code>i</code> 入栈</li>
 <li><strong>终止</strong>: 遍历结束, 栈中剩余元素右侧无更大值</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; ++i) &#123;<br>    <span class="hljs-keyword">while</span> (top &gt; <span class="hljs-number">0</span> &amp;&amp; nums[<span class="hljs-built_in">stack</span>[top - <span class="hljs-number">1</span>]] &lt; nums[i]) &#123;<br>        ans[<span class="hljs-built_in">stack</span>[--top]] = i;<br>    &#125;<br>    <span class="hljs-built_in">stack</span>[top++] = i;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> top = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; ++i) &#123;<br>    ans[i] = <span class="hljs-number">-1</span>;<br>&#125;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; ++i) &#123;<br>    <span class="hljs-keyword">while</span> (top &gt; <span class="hljs-number">0</span> &amp;&amp; nums[<span class="hljs-built_in">stack</span>[top - <span class="hljs-number">1</span>]] &lt; nums[i]) &#123;<br>        ans[<span class="hljs-built_in">stack</span>[--top]] = i;<br>    &#125;<br>    <span class="hljs-built_in">stack</span>[top++] = i;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（摊还分析 - 核算法&#x2F;聚合分析）：每个下标入栈 $1$ 次、至多出栈 $1$ 次（入栈时赋摊还代价 $\widehat c_i &#x3D; 2$，预存 $1$ 单位信用支付出栈），总时间 $T(n) &#x3D; \Theta(n)$，单次摊还 $\Theta(1)$；栈空间峰值 $S(n) &#x3D; \Theta(n)$。</li>
+<li><strong>复杂度分析</strong>（摊还分析 - 核算法&#x2F;聚合分析）：<ul>
+<li>每个下标入栈 $1$ 次、至多出栈 $1$ 次（入栈时赋摊还代价 $\widehat c_i &#x3D; 2$，预存 $1$ 单位信用支付出栈），总时间 $T(n) &#x3D; \Theta(n)$，单次摊还 $\Theta(1)$；</li>
+<li>空间复杂度 $S(n) &#x3D; \Theta(n)$。</li>
 </ul>
-<h4 id="例2-二叉堆-push"><a href="#例2-二叉堆-push" class="headerlink" title="例2(二叉堆 push)"></a>例2(二叉堆 push)</h4><p>以大顶堆为例.<br><strong>不变量</strong>: 完全二叉树, 且任意节点满足 <code>heap[(i - 1) / 2] &gt;= heap[i]</code></p>
+</li>
+</ul>
+<h4 id="例2-二叉堆-push"><a href="#例2-二叉堆-push" class="headerlink" title="例2(二叉堆 push)"></a>例2(二叉堆 push)</h4><p>以大顶堆为例.</p>
+<p><strong>不变量</strong>: 完全二叉树, 且任意非根节点满足 <code>heap[(i - 1) / 2] &gt;= heap[i]</code></p>
 <ul>
 <li><strong>初始化</strong>: 单节点或空堆自然成立</li>
 <li><strong>保持</strong>: 新元素置于数组末尾(保持完全二叉树), 若大于父节点则不断交换上浮</li>
@@ -536,13 +571,17 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">heap_push</span><span class="hljs-params">(<span class="hljs-type">int</span>* heap, <span class="hljs-type">int</span>* size, <span class="hljs-type">int</span> val)</span> &#123;<br>    <span class="hljs-type">int</span> i = (*size)++;<br>    heap[i] = val;<br>    <span class="hljs-keyword">while</span> (i &gt; <span class="hljs-number">0</span> &amp;&amp; heap[(i - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>] &lt; heap[i]) &#123;<br>        swap(&amp;heap[(i - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>], &amp;heap[i]);<br>        i = (i - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>复杂度分析</strong>（直接加和）：完全二叉树不变量保证树高为 $\lfloor\log_2 n\rfloor$，上浮至多交换 $\lfloor\log_2 n\rfloor$ 次，时间复杂度为 $O(\log_2 n)$（最坏 $\Theta(\log_2 n)$）；原地交换，辅助空间 $S(n) &#x3D; \Theta(1)$。</li>
+<li><strong>复杂度分析</strong>（直接加和）：<ul>
+<li>完全二叉树不变量保证树高为 $\lfloor\log_2 n\rfloor$，上浮至多交换 $\lfloor\log_2 n\rfloor$ 次，时间复杂度为 $O(\log_2 n)$（最坏 $\Theta(\log_2 n)$）</li>
+<li>原地交换，空间复杂度 $S(n) &#x3D; \Theta(1)$。</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>写出正确的二分查找并非玄学，多指针的移动也并非无章可循——算法的每一步推进、数据结构的每一次调整，本质上都是在状态变化中<strong>维护不变量</strong>的归纳过程：不变量赋予了算法<strong>正确性</strong>的根基，也赋予了数据结构<strong>低复杂度</strong>的保证。</p>
 <p>正如数学家兼哲学家怀特海（Alfred North Whitehead）所言：</p>
 <blockquote>
-<p><em>“The art of progress is to preserve order amid change and to preserve change amid order.”</em><br>（进步的艺术，是在变化中保持秩序，在秩序中保持变化。）</p>
+<p><em>“The art of progress is to preserve order amid change and to preserve change amid order.”</em> （进步的艺术，是在变化中保持秩序，在秩序中保持变化。）</p>
 </blockquote>
 
                 
@@ -598,7 +637,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法与数据结构中的不变量</div>
+      <div>从不变量的角度重新审视算法与数据结构</div>
       <div>https://q0-dev.github.io/2026/11/17/从不变量的角度重新审视算法与数据结构/</div>
     </div>
     <div class="license-meta">
